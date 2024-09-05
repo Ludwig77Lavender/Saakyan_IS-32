@@ -1,0 +1,20 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocate(LC_ALL, "RU");
+
+	double a = 3.14; // переменная a
+	double b = 2.71; // переменная b
+
+	cout << "a = " << a << endl;
+	cout << "b = " << b << endl;
+
+	cout << "Сложение: " << a + b << endl;
+	cout << "Вычитание: " << a - b << endl;
+	cout << "Умножение: " << a * b << endl;
+	cout << "Деление: " << a / b << endl;
+
+	return 0;
+}

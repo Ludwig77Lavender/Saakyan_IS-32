@@ -1,0 +1,12 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocate(LC_ALL, "RU");
+
+	int number = 42;
+	cout << "Значение переменной number: " << number << endl;
+
+	return 0;
+}

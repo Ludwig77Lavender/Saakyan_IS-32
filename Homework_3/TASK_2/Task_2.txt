@@ -1,0 +1,19 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+	int result = 2;
+	int count = 0;
+
+	while (count < 10) {
+		result *= 2;
+		count++;
+	}
+
+	cout << "2 в степени 10 равно " << result << endl;
+
+	return 0;
+}

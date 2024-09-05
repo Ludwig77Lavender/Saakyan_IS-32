@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+	int num;
+	int x = 1;
+	int count = 1;
+
+	cout << "Введите целое число: ";
+	cin >> num;
+
+	while (count != (num + 1)) {
+		x *= count;
+		count++;
+	}
+
+	cout << num << "! = " << x << endl;
+
+	return 0;
+}

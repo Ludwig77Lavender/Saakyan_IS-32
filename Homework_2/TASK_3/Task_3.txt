@@ -1,0 +1,13 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocate(LC_ALL, "RU");
+
+	char letter = 'A';
+
+	cout << "Код символа 'A' в ASCII: " << static_cast<int>(letter) << endl;
+
+	return 0;
+}

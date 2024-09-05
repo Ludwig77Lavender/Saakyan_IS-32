@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    bool flag = true;
+
+    if (flag) {
+        cout << "true" << endl;
+    }
+    else {
+        cout << "false" << endl;
+    }
+
+    return 0;
+}

@@ -1,0 +1,17 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+	const float pi = 3.14159;
+	float radius;
+
+	cout << "Введите радиус: ";
+	cin >> radius;
+	
+	cout << "Длинна окружности: " << 2 * pi * radius << endl;
+
+	return 0;
+}

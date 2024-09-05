@@ -1,0 +1,25 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+	int x;
+
+	cout << "Введите число: ";
+	cin >> x;
+
+	for (int i = 2; i <= x; i++) {
+		if (i == x) {
+			cout << "Число " << x << " является простым!" << endl;
+			break;
+		}
+		if (x % i == 0) {
+			cout << "Число " << x << " не является простым!" << endl;
+			break;
+		}
+	}
+	
+	return 0;
+}

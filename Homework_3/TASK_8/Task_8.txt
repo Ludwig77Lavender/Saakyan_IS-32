@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cmath>  // Для pow() и tgamma()
+
+using namespace std;
+
+// Функция для вычисления факториала
+unsigned long long factorial(int n) {
+    if (n < 0) return 0;  // Факториал для отрицательных чисел не определен
+    return tgamma(n + 1);  // Используем гамма-функцию для вычисления факториала
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int x;
+    double num1, num2;
+
+    cout << "Выберите операцию: 1) Сложение; 2) Вычитание; 3) Умножение; \n4) Деление; 5) Возв. в степень; 6) Факториал числа: ";
+    cin >> x;
+
+    if (x == 6) {
+        cout << "Введите целое число: ";
+        cin >> num1;
+        if (num1 < 0 || floor(num1) != num1) {
+            cout << "Факториал определен только для неотрицательных целых чисел." << endl;
+        }
+        else {
+            cout << "Результат: " << factorial(static_cast<int>(num1)) << endl;
+        }
+    }
+    else {
+        cout << "Введите два числа (через пробел): ";
+        cin >> num1 >> num2;
+
+        switch (x) {
+        case 1:
+            cout << "Результат: " << num1 + num2 << endl;
+            break;
+        case 2:
+            cout << "Результат: " << num1 - num2 << endl;
+            break;
+        case 3:
+            cout << "Результат: " << num1 * num2 << endl;
+            break;
+        case 4:
+            if (num2 != 0) {
+                cout << "Результат: " << num1 / num2 << endl;
+            }
+            else {
+                cout << "Ошибка: деление на ноль!" << endl;
+            }
+            break;
+        case 5:
+            cout << "Результат: " << pow(num1, num2) << endl;
+            break;
+        default:
+            cout << "Ошибка: неизвестная операция!" << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
