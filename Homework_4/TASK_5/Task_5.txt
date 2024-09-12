@@ -1,0 +1,22 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+    int arr[] = {5, 4, 3, 4, 9};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    int pos = 0;
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > arr[pos]) {
+            pos = i;
+        }
+    }
+
+    cout << "Позиция максимального элемента: " << pos << endl;
+
+	return 0;
+}

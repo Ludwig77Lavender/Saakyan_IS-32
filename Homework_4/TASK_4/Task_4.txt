@@ -1,0 +1,28 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+    int arr[] = { 5, 4, 3, 4, 9 };
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    int max = arr[0];
+    int min = arr[0];
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+
+    int diff = max - min;
+
+    cout << "Разница между самым большим и самым маленьким элементом: " << diff << endl;
+
+	return 0;
+}
