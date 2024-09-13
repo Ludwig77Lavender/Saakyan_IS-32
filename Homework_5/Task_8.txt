@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    int a = 10;
+    int b = 20;
+    int* ptrA;
+    int* ptrB;
+    int* c = new int;
+
+    ptrA = &a;
+    ptrB = &b;
+
+    cout << "Value of a: " << *ptrA << endl;
+    cout << "Value of b: " << *ptrB << endl;
+
+    *ptrA = *ptrB;
+    cout << "After assigning b to a: " << *ptrA << endl;
+
+    *c = 1;
+    cout << "Value of c: " << *c << endl;
+
+    delete c;
+    cout << "End of program." << endl;
+
+    return 0;
+}
