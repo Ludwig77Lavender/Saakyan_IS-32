@@ -1,0 +1,73 @@
+#include <iostream> 
+
+using namespace std;
+
+// Функция для объединения массивов
+int* mergeArrays(const int* arr1, int size1, const int* arr2, int size2, int& mergedSize) {
+    // Если размеры массивов разные, возвращаем -1
+    if (size1 != size2) {
+        mergedSize = -1;
+        return nullptr;
+    }
+
+    mergedSize = size1 + size2;
+
+    int* mergedArray = new int[mergedSize];
+
+    for (int i = 0; i < size1; i++) {
+        mergedArray[i] = arr1[i];
+    }
+
+    for (int i = 0; i < size2; i++) {
+        mergedArray[size1 + i] = arr2[i];
+    }
+
+    return mergedArray;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    int size1, size2;
+
+    cout << "Введите размер первого массива: ";
+    cin >> size1;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Очистка буфера ввода
+    int* arr1 = new int[size1];
+    cout << "Введите элементы первого массива: ";
+    for (int i = 0; i < size1; i++) {
+        cin >> arr1[i];
+    }
+
+    cout << "Введите размер второго массива: ";
+    cin >> size2;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Очистка буфера ввода
+    int* arr2 = new int[size2];
+    cout << "Введите элементы второго массива: ";
+    for (int i = 0; i < size2; i++) {
+        cin >> arr2[i];
+    }
+
+    int mergedSize;
+    int* mergedArray = mergeArrays(arr1, size1, arr2, size2, mergedSize);
+
+    if (mergedSize == -1) {
+        cout << "-1" << endl;
+    }
+    
+    else {
+        cout << "Объединённый массив: ";
+        for (int i = 0; i < mergedSize; i++) {
+            cout << mergedArray[i] << " ";
+        }
+        cout << endl;
+
+        cout << "Размер объединённого массива: " << mergedSize << endl;
+    }
+
+    delete[] arr1;
+    delete[] arr2;
+    delete[] mergedArray;
+
+    return 0;
+}

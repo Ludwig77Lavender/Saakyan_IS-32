@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+double multiplyOrAdd(bool add, double a, double b) {
+    if (add) {
+        return a + b;
+    }
+    else {
+        return a * b;
+    }
+}
+
+// Функция multiplyOrAdd с аргументом по умолчанию add = true
+double multiplyOrAdd(double a, double b, bool add = true) {
+    if (add) {
+        return a + b;
+    }
+    else {
+        return a * b;
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    double num1, num2;
+    bool add;
+
+    cout << "Введите первое число: ";
+    cin >> num1;
+    cout << "Введите второе число: ";
+    cin >> num2;
+
+    cout << "Введите 1 для сложения или 0 для умножения: ";
+    cin >> add;
+
+    cout << "Результат: " << multiplyOrAdd(add, num1, num2) << endl;
+
+    cout << "Результат с аргументом по умолчанию (сложение): " << multiplyOrAdd(num1, num2) << endl;
+
+    return 0;
+}

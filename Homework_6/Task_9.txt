@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+// Функция для поворота массива влево
+void rotateArray(int(&arr)[5], int positions) {
+    const int SIZE = 5;
+    positions = positions % SIZE;
+
+    int temp[SIZE];
+
+    for (int i = 0; i < SIZE; i++) {
+        temp[i] = arr[(i + positions) % SIZE];
+    }
+
+    for (int i = 0; i < SIZE; i++) {
+        arr[i] = temp[i];
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    const int SIZE = 5;
+    int arr[SIZE] = { 1, 2, 3, 4, 5 };
+
+    int positions;
+    cout << "Введите количество позиций для поворота влево: ";
+    cin >> positions;
+
+    cout << "Исходный массив: ";
+    for (int i = 0; i < SIZE; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    rotateArray(arr, positions);
+
+    cout << "Массив после поворота: ";
+    for (int i = 0; i < SIZE; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}

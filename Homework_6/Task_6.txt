@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+// Функция, которая увеличивает n на 1 и заменяет n-й элемент массива на 0
+void modifyArray(int& n, int* arr, int size) {
+    if (n >= 0 && n < size) {
+        arr[n] = 0;  // Заменяем n-й элемент массива на 0
+    }
+    n++;  // Увеличиваем n на 1
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int size, n;
+
+    cout << "Введите размер массива: ";
+    cin >> size;
+
+    int* arr = new int[size];
+
+    cout << "Введите элементы массива: ";
+    for (int i = 0; i < size; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "Введите значение n (индекс элемента массива): ";
+    cin >> n;
+
+    cout << "Исходные данные:" << endl;
+    cout << "n = " << n << endl;
+    cout << "Массив: { ";
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << "}" << endl;
+
+    modifyArray(n, arr, size);
+
+    cout << "Изменённые данные:" << endl;
+    cout << "n = " << n << endl;
+    cout << "Массив: { ";
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << "}" << endl;
+
+    delete[] arr;
+
+    return 0;
+}

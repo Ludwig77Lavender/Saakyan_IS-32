@@ -1,0 +1,41 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    int size;
+    int index;
+
+    cout << "Введите размер массива: ";
+    cin >> size;
+    cout << "Введите номер элемента: ";
+    cin >> index;
+
+    int* arr = new int[size];
+
+    cout << "Введите элементы массива: ";
+    for (int i = 0; i < size; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "Массив: { ";
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << "}" << endl;
+
+    if (index >= 0 && index < size) {
+        // Вывод элемента массива по введённому индексу (учитываем сдвиг, так как пользователь вводит с 1)
+        cout << "Элемент под номером " << index << ": " << arr[index] << endl;
+    }
+    else {
+        // Сообщение об ошибке, если индекс выходит за пределы массива
+        cout << "Ошибка: Индекс выходит за пределы массива." << endl;
+    }
+
+    delete[] arr;
+    
+    return 0;
+}

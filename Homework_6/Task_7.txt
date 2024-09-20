@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cstring>  // Для работы с C-style строками
+
+using namespace std;
+
+// Функция для сравнения двух C-style строк
+int compareStrings(const char* str1, const char* str2) {
+    // Проходим по обеим строкам, пока не встретим конец одной из них ('\0')
+    while (*str1 != '\0' && *str2 != '\0') {
+        if (*str1 < *str2) {
+            return -1;
+        }
+        if (*str1 > *str2) {
+            return 1;
+        }
+        str1++;
+        str2++;
+    }
+
+    if (*str1 == '\0' && *str2 == '\0') {
+        return 0;
+    }
+
+    if (*str1 == '\0') {
+        return -1;
+    }
+
+    return 1;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    const int MAX_SIZE = 100;
+
+    char str1[MAX_SIZE];
+    char str2[MAX_SIZE];
+
+    cout << "Введите первую строку: ";
+    cin.getline(str1, MAX_SIZE);
+
+    cout << "Введите вторую строку: ";
+    cin.getline(str2, MAX_SIZE);
+
+    int result = compareStrings(str1, str2);
+
+    if (result == 0) {
+        cout << "Строки равны" << endl;
+    }
+    else if (result == -1) {
+        cout << "Первая строка меньше второй" << endl;
+    }
+    else {
+        cout << "Первая строка больше второй" << endl;
+    }
+
+    return 0;
+}

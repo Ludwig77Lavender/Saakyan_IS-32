@@ -1,0 +1,72 @@
+#include <iostream>
+
+using namespace std;
+
+// Функция для нахождения общих элементов двух массивов
+int* findCommonElements(const int* arr1, int size1, const int* arr2, int size2, int& commonSize) {
+    // Максимальный размер общего массива
+    const int MAX_COMMON_SIZE = 100;
+    int* commonElements = new int[MAX_COMMON_SIZE]; // Динамический массив для общих элементов
+    commonSize = 0; // Инициализация размера общего массива
+
+    // Проходим по первому массиву
+    for (int i = 0; i < size1; i++) {
+        // Проверяем, есть ли текущий элемент в втором массиве
+        for (int j = 0; j < size2; j++) {
+            if (*(arr1 + i) == *(arr2 + j)) { // Используем указатели
+                // Если элемент уже не добавлен, добавляем его в общий массив
+                bool alreadyExists = false;
+                for (int k = 0; k < commonSize; k++) {
+                    if (commonElements[k] == arr1[i]) {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+                if (!alreadyExists) {
+                    commonElements[commonSize] = arr1[i];
+                    commonSize++;
+                }
+                break; // Выходим из внутреннего цикла, если элемент найден
+            }
+        }
+    }
+
+    return commonElements; // Возвращаем массив общих элементов
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    const int SIZE1 = 5;
+    const int SIZE2 = 6;
+
+    int arr1[SIZE1] = { 1, 2, 3, 4, 5 };
+    int arr2[SIZE2] = { 3, 4, 5, 6, 7, 8 };
+
+    int commonSize;
+    int* commonElements = findCommonElements(arr1, SIZE1, arr2, SIZE2, commonSize);
+
+    cout << "Список 1: ";
+    for (int i = 0; i < SIZE1; i++) {
+        cout << arr1[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Список 2: ";
+    for (int i = 0; i < SIZE2; i++) {
+        cout << arr2[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Общие элементы: ";
+    for (int i = 0; i < commonSize; i++) {
+        cout << commonElements[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Размер массива общих элементов: " << commonSize << endl;
+
+    delete[] commonElements;
+
+    return 0;
+}

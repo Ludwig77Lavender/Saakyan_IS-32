@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cmath>     // Для использования функции sqrt()
+#include <stdexcept> // Для работы с исключениями
+#include <cstdlib>   // Для использования функции exit()
+
+using namespace std;
+
+double sqrti(double x) {
+    if (x < 0) {
+        throw invalid_argument("Negative argument");
+    }
+    return sqrt(x);
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    double num;
+
+    cout << "Введите число: ";
+    cin >> num;
+
+    try {
+        double result = sqrti(num);
+        cout << "Квадратный корень из " << num << " равен " << result << endl;
+    }
+    catch (const invalid_argument& e) {
+        cerr << "Ошибка: " << e.what() << endl;
+        exit(0);
+    }
+
+    return 0;
+}
