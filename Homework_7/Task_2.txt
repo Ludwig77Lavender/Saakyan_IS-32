@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+void copyString(const char* src, char* dest) {
+    // Если текущий символ исходной строки '\0', копируем его и завершаем рекурсию
+    if (*src == '\0') {
+        *dest = '\0';
+        return;
+    }
+    *dest = *src;
+    copyString(src + 1, dest + 1);
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+        const int size = 100;
+    char src[size];
+    char dest[size];
+
+    cout << "Введите строку: ";
+    cin.getline(src, size);
+
+    copyString(src, dest);
+
+    cout << "Скопированная строка: " << dest << endl;
+
+    return 0;
+}
