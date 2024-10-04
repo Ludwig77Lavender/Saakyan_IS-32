@@ -1,38 +1,7 @@
 #include <iostream>
-#include <cstring>  // Для std::memcpy
+#include "h_3.h"  // Подключаем заголовочный файл
+
 using namespace std;
-
-// Для целых чисел
-int* resizeArray(int* arr, int oldSize, int newSize) {
-    int* newArr = new int[newSize];
-
-    for (int i = 0; i < (oldSize < newSize ? oldSize : newSize); ++i) {
-        newArr[i] = arr[i];
-    }
-
-    for (int i = oldSize; i < newSize; ++i) {
-        newArr[i] = 0;
-    }
-
-    delete[] arr;
-    return newArr;
-}
-
-// Для вещественных чисел
-double* resizeArray(double* arr, int oldSize, int newSize) {
-    double* newArr = new double[newSize];
-
-    for (int i = 0; i < (oldSize < newSize ? oldSize : newSize); ++i) {
-        newArr[i] = arr[i];
-    }
-
-    for (int i = oldSize; i < newSize; ++i) {
-        newArr[i] = 0.0;
-    }
-
-    delete[] arr;
-    return newArr;
-}
 
 int main() {
     setlocale(LC_ALL, "RU");
@@ -48,7 +17,7 @@ int main() {
     intArray = resizeArray(intArray, initialSizeInt, newSizeInt);
 
     cout << "Массив целых чисел после изменения размера: ";
-    for (int i = 0; i < newSizeInt; ++i) {
+    for (int i = 0; i < newSizeInt; i++) {
         cout << intArray[i] << " ";
     }
     cout << endl;
@@ -59,7 +28,7 @@ int main() {
     doubleArray = resizeArray(doubleArray, initialSizeDouble, newSizeDouble);
 
     cout << "Массив вещественных чисел после изменения размера: ";
-    for (int i = 0; i < newSizeDouble; ++i) {
+    for (int i = 0; i < newSizeDouble; i++) {
         cout << doubleArray[i] << " ";
     }
     cout << endl;

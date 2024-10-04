@@ -1,19 +1,7 @@
 #include <iostream>
+#include "h_1.h"  // Подключаем заголовочный файл с объявлениями функций
+
 using namespace std;
-
-// Перегруженная функция для копирования массива целых чисел
-void copyArray(const int* src, int* dest, int size) {
-    for (int i = 0; i < size; ++i) {
-        dest[i] = src[i];
-    }
-}
-
-// Перегруженная функция для копирования массива чисел с плавающей точкой
-void copyArray(const double* src, double* dest, int size) {
-    for (int i = 0; i < size; ++i) {
-        dest[i] = src[i];
-    }
-}
 
 int main() {
     setlocale(LC_ALL, "RU");

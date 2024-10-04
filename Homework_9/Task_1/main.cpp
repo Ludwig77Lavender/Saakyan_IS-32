@@ -1,25 +1,7 @@
 #include <iostream>
+#include "h_1.h"  // Подключаем заголовочный файл
+
 using namespace std;
-
-bool compareInt(int a, int b) {
-    return a > b;
-}
-
-int findMax(int* arr, int size, bool (*compare)(int, int)) {
-    if (size == 0) {
-        throw runtime_error("Массив пуст");
-    }
-
-    int maxElement = arr[0];
-
-    for (int i = 1; i < size; ++i) {
-        if (compare(arr[i], maxElement)) {
-            maxElement = arr[i];
-        }
-    }
-
-    return maxElement;
-}
 
 int main() {
     setlocale(LC_ALL, "RU");

@@ -1,25 +1,7 @@
 #include <iostream>
+#include "h_2.h"  // Подключаем заголовочный файл
+
 using namespace std;
-
-// Целые числа
-bool contains(const int* arr, int size, int value) {
-    for (int i = 0; i < size; ++i) {
-        if (arr[i] == value) {
-            return true;
-        }
-    }
-    return false;
-}
-
-// Числа с плавающей точкой
-bool contains(const double* arr, int size, double value) {
-    for (int i = 0; i < size; ++i) {
-        if (arr[i] == value) {
-            return true;
-        }
-    }
-    return false;
-}
 
 int main() {
     setlocale(LC_ALL, "RU");
@@ -33,8 +15,7 @@ int main() {
 
     if (contains(intArray, sizeInt, intValueToFind)) {
         cout << "Элемент " << intValueToFind << " найден в массиве целых чисел." << endl;
-    }
-    else {
+    } else {
         cout << "Элемент " << intValueToFind << " не найден в массиве целых чисел." << endl;
     }
 
@@ -44,8 +25,7 @@ int main() {
 
     if (contains(doubleArray, sizeDouble, doubleValueToFind)) {
         cout << "Элемент " << doubleValueToFind << " найден в массиве чисел с плавающей точкой." << endl;
-    }
-    else {
+    } else {
         cout << "Элемент " << doubleValueToFind << " не найден в массиве чисел с плавающей точкой." << endl;
     }
 
