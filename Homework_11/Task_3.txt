@@ -1,0 +1,90 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Animal {
+    string name;
+    string species;
+    string color;
+    int age = 0; // Инициализация переменной age
+    float weight = 0; // Инициализация переменной weight
+
+    void display() const {
+        cout << "Name: " << name << "\n"
+            << "Species: " << species << "\n"
+            << "Color: " << color << "\n"
+            << "Age: " << age << " years\n"
+            << "Weight: " << weight << " kg\n";
+    }
+
+    void increaseWeight(int feedingDays) {
+        weight += weight * 0.01 * feedingDays;
+    }
+
+    void changeName(const string& newName) {
+        name = newName;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Инициализация каждого поля отдельно
+    Animal animal1;
+    animal1.name = "Bella";
+    animal1.species = "Dog";
+    animal1.color = "Brown";
+    animal1.age = 5;
+    animal1.weight = 20.0;
+
+    // Инициализация списком
+    Animal animal2 = { "Max", "Cat", "Black", 3, 5.0 };
+
+    // Универсальная инициализация
+    Animal animal3{ "Oscar", "Rabbit", "White", 2, 2.5 };
+
+    // Динамическое создание объекта
+    Animal* animal4 = new Animal{ "Luna", "Parrot", "Green", 1, 0.4 };
+
+    // Вывод данных в консоль
+    animal1.display();
+    animal1.increaseWeight(30);
+    cout << endl;
+    animal1.display();
+    animal1.changeName("Bella the Brave");
+    cout << endl;
+    animal1.display();
+    cout << endl;
+
+    animal2.display();
+    animal2.increaseWeight(20);
+    cout << endl;
+    animal2.display();
+    animal2.changeName("Maximus");
+    cout << endl;
+    animal2.display();
+    cout << endl;
+
+    animal3.display();
+    animal3.increaseWeight(10);
+    cout << endl;
+    animal3.display();
+    animal3.changeName("Oscar the Great");
+    cout << endl;
+    animal3.display();
+    cout << endl;
+
+    animal4->display();
+    animal4->increaseWeight(15);
+    cout << endl;
+    animal4->display();
+    animal4->changeName("Luna the Wise");
+    cout << endl;
+    animal4->display();
+
+    // Освобождение динамически выделенной памяти
+    delete animal4;
+
+    return 0;
+}

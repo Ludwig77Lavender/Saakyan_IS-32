@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+struct Human {
+    string firstName;
+    string lastName;
+    int age = 0;
+    double weight = 0.0; // в килограммах
+    double height = 0.0; // в метрах
+
+    double calculateBMI() const {
+        return (weight / (height * height));
+    }
+
+    int calculateYearOfBirth() const {
+        int currentYear = 2024; // Предположим, что текущий год 2024
+        return currentYear - age;
+    }
+
+    void print() const {
+        cout << "Name: " << firstName << " " << lastName << endl;
+        cout << "Age: " << age << endl;
+        cout << "Weight: " << weight << endl;
+        cout << "Height: " << height << endl;
+        cout << "BMI: " << calculateBMI() << endl;
+        cout << "Year of Birth: " << calculateYearOfBirth() << endl;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Инициализация каждого поля отдельно
+    Human human1;
+    human1.firstName = "Иван";
+    human1.lastName = "Иванов";
+    human1.age = 30;
+    human1.weight = 70.0;
+    human1.height = 1.75;
+
+    // Список инициализации
+    Human human2 = { "Алексей", "Алексеев", 25, 80.0, 1.80 };
+
+    // Универсальная инициализация
+    Human human3{ "Мария", "Петрова", 28, 60.0, 1.65 };
+
+    // Динамическая инициализация
+    Human* human4 = new Human{ "Николай", "Николаев", 35, 90.0, 1.85 };
+
+    // Вызов методов для каждого экземпляра структуры
+    human1.print();
+    cout << endl;
+    human2.print();
+    cout << endl;
+    human3.print();
+    cout << endl;
+    human4->print();
+    cout << endl;
+
+    delete human4;
+    return 0;
+}

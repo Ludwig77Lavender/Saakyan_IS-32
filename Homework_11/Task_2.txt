@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+struct Car {
+    string brand;
+    string color;
+    string bodyType;
+    int engineVolume = 0; // Инициализация переменной engineVolume
+    int mileage = 0; // Инициализация переменной mileage
+
+    void display() const {
+        cout << "Brand: " << brand << "\n"
+            << "Color: " << color << "\n"
+            << "Body Type: " << bodyType << "\n"
+            << "Engine Volume: " << engineVolume << " cc\n"
+            << "Mileage: " << mileage << " km\n";
+    }
+
+    float averageFuelConsumption() const {
+        return static_cast<float>(engineVolume) / mileage * 100;
+    }
+
+    void reduceMileage(int reduction) {
+        mileage -= reduction;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Инициализация каждого поля отдельно
+    Car car1;
+    car1.brand = "Toyota";
+    car1.color = "Red";
+    car1.bodyType = "Sedan";
+    car1.engineVolume = 2000;
+    car1.mileage = 150000;
+
+    // Инициализация списком
+    Car car2 = { "Ford", "Blue", "Hatchback", 1800, 100000 };
+
+    // Универсальная инициализация
+    Car car3{ "BMW", "Black", "Coupe", 3000, 50000 };
+
+    // Динамическое создание объекта
+    Car* car4 = new Car{ "Audi", "White", "SUV", 2500, 20000 };
+
+    // Вывод данных в консоль
+    car1.display();
+    cout << "Average Fuel Consumption: " << car1.averageFuelConsumption() << "L/100 km\n";
+    car1.reduceMileage(10000);
+    cout << endl;
+    car1.display();
+
+    cout << endl;
+
+    car2.display();
+    cout << "Average Fuel Consumption: " << car2.averageFuelConsumption() << "L/100 km\n";
+    car2.reduceMileage(5000);
+    cout << endl;
+    car2.display();
+
+    cout << endl;
+
+    car3.display();
+    cout << "Average Fuel Consumption: " << car3.averageFuelConsumption() << "L/100 km\n";
+    car3.reduceMileage(2000);
+    cout << endl;
+    car3.display();
+
+    cout << endl;
+
+    car4->display();
+    cout << "Average Fuel Consumption: " << car4->averageFuelConsumption() << "L/100 km\n";
+    car4->reduceMileage(3000);
+    cout << endl;
+    car4->display();
+
+    delete car4;
+
+    return 0;
+}
