@@ -1,0 +1,50 @@
+#include <iostream>
+#include <string>
+#include <random>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    int monsterHealth = 100;
+
+    string inventory = { '-', 'S', 'B' };
+    char weapon;
+    int damage;
+
+    cout << "Выберите оружие ('-' - рука; 'S' - меч; 'B' - бита): ";
+    cin >> weapon;
+    cout << endl;
+
+    while (weapon != '-' && weapon != 'S' && weapon != 'B') {
+        cout << "Неверное значение!" << endl;
+        cout << "Выберите оружие ('-' - рука; 'S' - меч; 'B' - бита): ";
+        cin >> weapon;
+        cout << endl;
+    }
+
+    if (weapon == '-') {
+        damage = 10;
+    }
+    else if (weapon == 'B') {
+        damage = 25;
+    }
+    else if (weapon == 'S') {
+        damage = 50;
+    }
+
+    while (monsterHealth > 0) {
+        char attack;
+        cout << "Атаковать? (y/n): ";
+        cin >> attack;
+        if (attack == 'y') {
+            monsterHealth -= damage;
+        }
+        else {
+            continue;
+        }
+        cout << "Здоровье: " << monsterHealth << endl;
+    }
+    return 0;
+}

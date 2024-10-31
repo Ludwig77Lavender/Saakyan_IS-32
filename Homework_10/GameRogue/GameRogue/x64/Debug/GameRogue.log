@@ -1,0 +1,7 @@
+﻿  game.cpp
+C:\Users\Артём\Documents\Project\C++\GameRogue\GameRogue\game.cpp(34,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\Артём\Documents\Project\C++\GameRogue\GameRogue\game.cpp(178,13): warning C4552: "!": результат выражения не используется
+C:\Users\Артём\Documents\Project\C++\GameRogue\GameRogue\game.cpp(388,13): warning C4552: "!": результат выражения не используется
+C:\Users\Артём\Documents\Project\C++\GameRogue\GameRogue\game.cpp(588,13): warning C4552: "!": результат выражения не используется
+C:\Users\Артём\Documents\Project\C++\GameRogue\GameRogue\game.cpp(783,13): warning C4552: "!": результат выражения не используется
+  GameRogue.vcxproj -> C:\Users\Артём\Documents\Project\C++\GameRogue\x64\Debug\GameRogue.exe

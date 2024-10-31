@@ -1,0 +1,105 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+void playGame() {
+    srand(time(0));
+
+    int score = 0;
+    char playAgain;
+
+    do {
+        int computerChoice = 1 + rand() % 3;
+        int playerChoice;
+
+        cout << "Выберите 1 - камень; 2 - ножницы; 3 - бумага: ";
+        cin >> playerChoice;
+
+        while (playerChoice < 1 || playerChoice > 3) {
+            cout << "Неправильное значение!" << endl;
+            cout << "Выберите 1 - камень; 2 - ножницы; 3 - бумага: ";
+            cin >> playerChoice;
+        }
+
+        int win = 0;
+
+        cout << "Ваш выбор: ";
+        switch (playerChoice) {
+        case 1: cout << "Камень"; break;
+        case 2: cout << "Ножницы"; break;
+        case 3: cout << "Бумага"; break;
+        }
+        cout << "\nВыбор компьютера: ";
+        switch (computerChoice) {
+        case 1: cout << "Камень"; break;
+        case 2: cout << "Ножницы"; break;
+        case 3: cout << "Бумага"; break;
+        }
+        cout << endl;
+
+        // Определение результата игры
+        if (playerChoice == computerChoice) {
+            cout << "Ничья!" << endl;
+            win = 2;
+        }
+        else {
+            switch (playerChoice) {
+            case 1:
+                if (computerChoice == 2) {
+                    cout << "Вы победили! Камень бьёт ножницы." << endl;
+                    win = 1;
+                }
+                else {
+                    cout << "Вы проиграли! Бумага накрывает камень." << endl;
+                    win = 0;
+                }
+                break;
+            case 2:
+                if (computerChoice == 3) {
+                    cout << "Вы победили! Ножницы режут бумагу." << endl;
+                    win = 1;
+                }
+                else {
+                    cout << "Вы проиграли! Камень бьёт ножницы." << endl;
+                    win = 0;
+                }
+                break;
+            case 3:
+                if (computerChoice == 1) {
+                    cout << "Вы победили! Бумага накрывает камень." << endl;
+                    win = 1;
+                }
+                else {
+                    cout << "Вы проиграли! Ножницы режут бумагу." << endl;
+                    win = 0;
+                }
+                break;
+            }
+        }
+
+        // Обновление счёта на основе результата
+        if (win == 1) score += 2;
+        else if (win == 0) score -= 1;
+        else if (win == 2) score += 1;
+
+        cout << "Текущий счёт: " << score << endl;
+
+        // Запрос на повторную игру
+        cout << "Хотите сыграть ещё раз? (y/n): ";
+        cin >> playAgain;
+        cout << endl;
+
+    } while (playAgain == 'y' || playAgain == 'Y');
+
+    cout << "Спасибо за игру! Ваш финальный счёт: " << score << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    playGame();
+
+    return 0;
+}
