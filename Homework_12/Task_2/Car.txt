@@ -1,0 +1,32 @@
+#include "Car.h"
+#include <iostream>
+#include <cmath>
+
+Car::Car() : brand(""), color(""), bodyType(""), engineVolume(0), mileage(0) {}
+
+Car::Car(std::string b, std::string c, std::string bt, int ev, int m): 
+    brand(b), color(c), bodyType(bt), engineVolume(ev), mileage(m) {}
+
+void Car::setAttributes(std::string b, std::string c, std::string bt, int ev, int m) {
+    brand = b;
+    color = c;
+    bodyType = bt;
+    engineVolume = ev;
+    mileage = m;
+}
+
+void Car::display() const {
+    std::cout << "Brand: " << brand << "\n"
+        << "Color: " << color << "\n"
+        << "Body Type: " << bodyType << "\n"
+        << "Engine Volume: " << engineVolume << " cc\n"
+        << "Mileage: " << mileage << " km\n";
+}
+
+float Car::averageFuelConsumption() const {
+    return static_cast<float>(engineVolume) / mileage * 100;
+}
+
+void Car::reduceMileage(int reduction) {
+    mileage -= reduction;
+}

@@ -1,0 +1,20 @@
+#pragma once
+#include <iostream>
+#include <string>
+
+class Human {
+private:
+    std::string firstName;
+    std::string lastName;
+    int age;
+    double weight;
+    double height;
+
+public:
+    Human();
+    Human(std::string fName, std::string lName, int a, double w, double h);
+    double calculateBMI() const;
+    int calculateYearOfBirth() const;
+    void print() const;
+    void setAttributes(std::string fName, std::string lName, int a, double w, double h);
+};

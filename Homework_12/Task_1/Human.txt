@@ -1,0 +1,34 @@
+#include "Human.h"
+#include <cmath>
+#include <iostream>
+
+Human::Human() : firstName(""), lastName(""), age(0), weight(0.0), height(0.0) {}
+
+Human::Human(std::string fName, std::string lName, int a, double w, double h): 
+    firstName(fName), lastName(lName), age(a), weight(w), height(h) {}
+
+double Human::calculateBMI() const {
+    return (weight / (height * height));
+}
+
+int Human::calculateYearOfBirth() const {
+    int currentYear = 2024; // Текущий год 2024
+    return currentYear - age;
+}
+
+void Human::print() const {
+    std::cout << "Name: " << firstName << " " << lastName << std::endl;
+    std::cout << "Age: " << age << std::endl;
+    std::cout << "Weight: " << weight << std::endl;
+    std::cout << "Height: " << height << std::endl;
+    std::cout << "BMI: " << calculateBMI() << std::endl;
+    std::cout << "Year of Birth: " << calculateYearOfBirth() << std::endl;
+}
+
+void Human::setAttributes(std::string fName, std::string lName, int a, double w, double h) {
+    firstName = fName;
+    lastName = lName;
+    age = a;
+    weight = w;
+    height = h;
+}

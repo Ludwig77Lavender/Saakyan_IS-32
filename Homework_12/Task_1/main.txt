@@ -1,0 +1,22 @@
+#include <iostream>
+#include "Human.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Статический объект
+    Human human1;
+    human1.setAttributes("Иван", "Иванов", 30, 70.0, 1.75);
+    human1.print();
+    std::cout << std::endl;
+
+    // Динамический объект
+    Human* human2 = new Human;
+    human2->setAttributes("Алексей", "Алексеев", 25, 80.0, 1.80);
+    human2->print();
+    std::cout << std::endl;
+
+    delete human2;
+
+    return 0;
+}

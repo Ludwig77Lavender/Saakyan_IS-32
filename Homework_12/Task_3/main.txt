@@ -1,0 +1,33 @@
+#include <iostream>
+#include "Animal.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Статический объект
+    Animal animal1;
+    animal1.setAttributes("Bella", "Dog", "Brown", 5, 20.0);
+    animal1.display();
+    animal1.increaseWeight(30);
+    std::cout << std::endl;
+    animal1.display();
+    animal1.changeName("Bella the Brave");
+    std::cout << std::endl;
+    animal1.display();
+    std::cout << std::endl;
+
+    // Динамический объект
+    Animal* animal2 = new Animal("Max", "Cat", "Black", 3, 5.0);
+    animal2->display();
+    animal2->increaseWeight(20);
+    std::cout << std::endl;
+    animal2->display();
+    animal2->changeName("Maximus");
+    std::cout << std::endl;
+    animal2->display();
+    std::cout << std::endl;
+
+    delete animal2;
+
+    return 0;
+}

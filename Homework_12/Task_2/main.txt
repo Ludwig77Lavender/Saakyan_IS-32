@@ -1,0 +1,29 @@
+#include <iostream>
+#include "Car.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Статический объект
+    Car car1;
+    car1.setAttributes("Toyota", "Red", "Sedan", 2000, 150000);
+    car1.display();
+    std::cout << "Average Fuel Consumption: " << car1.averageFuelConsumption() << "L/100 km\n";
+    car1.reduceMileage(10000);
+    std::cout << std::endl;
+    car1.display();
+
+    std::cout << std::endl;
+
+    // Динамический объект
+    Car* car2 = new Car("Ford", "Blue", "Hatchback", 1800, 100000);
+    car2->display();
+    std::cout << "Average Fuel Consumption: " << car2->averageFuelConsumption() << "L/100 km\n";
+    car2->reduceMileage(5000);
+    std::cout << std::endl;
+    car2->display();
+
+    delete car2;
+
+    return 0;
+}

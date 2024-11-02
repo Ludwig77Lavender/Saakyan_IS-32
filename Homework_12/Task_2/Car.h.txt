@@ -1,0 +1,19 @@
+#include <iostream>
+#include <string>
+
+class Car {
+private:
+    std::string brand;
+    std::string color;
+    std::string bodyType;
+    int engineVolume;
+    int mileage;
+
+public:
+    Car();
+    Car(std::string b, std::string c, std::string bt, int ev, int m);
+    void setAttributes(std::string b, std::string c, std::string bt, int ev, int m);
+    void display() const;
+    float averageFuelConsumption() const;
+    void reduceMileage(int reduction);
+};

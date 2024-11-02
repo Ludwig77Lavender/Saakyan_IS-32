@@ -1,0 +1,31 @@
+#include "Animal.h"
+#include <iostream>
+
+Animal::Animal() : name(""), species(""), color(""), age(0), weight(0.0) {}
+
+Animal::Animal(std::string n, std::string s, std::string c, int a, float w)
+    : name(n), species(s), color(c), age(a), weight(w) {}
+
+void Animal::setAttributes(std::string n, std::string s, std::string c, int a, float w) {
+    name = n;
+    species = s;
+    color = c;
+    age = a;
+    weight = w;
+}
+
+void Animal::display() const {
+    std::cout << "Name: " << name << "\n"
+        << "Species: " << species << "\n"
+        << "Color: " << color << "\n"
+        << "Age: " << age << " years\n"
+        << "Weight: " << weight << " kg\n";
+}
+
+void Animal::increaseWeight(int feedingDays) {
+    weight += weight * 0.01 * feedingDays;
+}
+
+void Animal::changeName(const std::string& newName) {
+    name = newName;
+}
