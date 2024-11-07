@@ -1,0 +1,92 @@
+#include "Animal.h"
+#include <iostream>
+
+Animal::Animal() : name(""), species(""), color(""), age(0), weight(0.0f) {
+    std::cout << "Конструктор по умолчанию вызван" << std::endl;
+}
+
+Animal::Animal(std::string n, std::string s, std::string c, int a, float w)
+    : name(n), species(s), color(c), age(a), weight(w) {
+    std::cout << "Параметризованный конструктор вызван" << std::endl;
+}
+
+Animal::~Animal() {
+    std::cout << "Деструктор вызван для " << name << std::endl;
+}
+
+void Animal::setAttributes(std::string n, std::string s, std::string c, int a, float w) {
+    name = n;
+    species = s;
+    color = c;
+    age = a;
+    weight = w;
+}
+
+void Animal::display() const {
+    std::cout << "Name: " << name << std::endl
+        << "Species: " << species << std::endl
+        << "Color: " << color << std::endl
+        << "Age: " << age << " years\n"
+        << "Weight: " << weight << " kg\n";
+}
+
+void Animal::increaseWeight(int feedingDays) {
+    weight += weight * 0.01 * feedingDays;
+}
+
+void Animal::changeName(const std::string& newName) {
+    if (!newName.empty()) {
+        name = newName;
+    }
+}
+
+// Геттеры и сеттеры
+std::string Animal::getName() const {
+    return name;
+}
+
+void Animal::setName(const std::string& n) {
+    if (!n.empty()) {
+        name = n;
+    }
+}
+
+std::string Animal::getSpecies() const {
+    return species;
+}
+
+void Animal::setSpecies(const std::string& s) {
+    if (!s.empty()) {
+        species = s;
+    }
+}
+
+std::string Animal::getColor() const {
+    return color;
+}
+
+void Animal::setColor(const std::string& c) {
+    if (!c.empty()) {
+        color = c;
+    }
+}
+
+int Animal::getAge() const {
+    return age;
+}
+
+void Animal::setAge(int a) {
+    if (a > 0 && a < 100) {
+        age = a;
+    }
+}
+
+float Animal::getWeight() const {
+    return weight;
+}
+
+void Animal::setWeight(float w) {
+    if (w > 0) {
+        weight = w;
+    }
+}

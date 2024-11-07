@@ -1,0 +1,38 @@
+#pragma once
+#include <iostream>
+#include <string>
+
+class Car {
+private:
+    std::string brand;
+    std::string color;
+    std::string bodyType;
+    int engineVolume;
+    int mileage;
+
+public:
+    Car();
+    Car(std::string b, std::string c, std::string bt, int ev, int m);
+    ~Car();
+
+    void setAttributes(std::string b, std::string c, std::string bt, int ev, int m);
+    void display() const;
+    float averageFuelConsumption() const;
+    void reduceMileage(int reduction);
+
+    // Геттеры и сеттеры
+    std::string getBrand() const;
+    void setBrand(const std::string& b);
+
+    std::string getColor() const;
+    void setColor(const std::string& c);
+
+    std::string getBodyType() const;
+    void setBodyType(const std::string& bt);
+
+    int getEngineVolume() const;
+    void setEngineVolume(int ev);
+
+    int getMileage() const;
+    void setMileage(int m);
+};

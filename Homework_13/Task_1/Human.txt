@@ -1,0 +1,93 @@
+#include "Human.h"
+#include <cmath>
+#include <iostream>
+
+Human::Human() : firstName(""), lastName(""), age(0), weight(0.0), height(0.0) {
+    std::cout << "Конструктор по умолчанию вызван" << std::endl;
+}
+
+Human::Human(std::string fName, std::string lName, int a, double w, double h)
+    : firstName(fName), lastName(lName), age(a), weight(w), height(h) {
+    std::cout << "Параметризованный конструктор вызван" << std::endl;
+}
+
+Human::~Human() {
+    std::cout << "Деструктор вызван для " << firstName << " " << lastName << std::endl;
+}
+
+double Human::calculateBMI() const {
+    return (weight / (height * height));
+}
+
+int Human::calculateYearOfBirth() const {
+    int currentYear = 2024; // Текущий год 2024
+    return currentYear - age;
+}
+
+void Human::print() const {
+    std::cout << "Name: " << firstName << " " << lastName << std::endl;
+    std::cout << "Age: " << age << std::endl;
+    std::cout << "Weight: " << weight << std::endl;
+    std::cout << "Height: " << height << std::endl;
+    std::cout << "BMI: " << calculateBMI() << std::endl;
+    std::cout << "Year of Birth: " << calculateYearOfBirth() << std::endl;
+}
+
+void Human::setAttributes(std::string fName, std::string lName, int a, double w, double h) {
+    firstName = fName;
+    lastName = lName;
+    age = a;
+    weight = w;
+    height = h;
+}
+
+// Геттеры и сеттеры
+std::string Human::getFirstName() const {
+    return firstName;
+}
+
+void Human::setFirstName(const std::string& fName) {
+    if (!fName.empty()) {
+        firstName = fName;
+    }
+}
+
+std::string Human::getLastName() const {
+    return lastName;
+}
+
+void Human::setLastName(const std::string& lName) {
+    if (!lName.empty()) {
+        lastName = lName;
+    }
+}
+
+int Human::getAge() const {
+    return age;
+}
+
+void Human::setAge(int a) {
+    if (a > 0 && a < 120) {
+        age = a;
+    }
+}
+
+double Human::getWeight() const {
+    return weight;
+}
+
+void Human::setWeight(double w) {
+    if (w > 0) {
+        weight = w;
+    }
+}
+
+double Human::getHeight() const {
+    return height;
+}
+
+void Human::setHeight(double h) {
+    if (h > 0) {
+        height = h;
+    }
+}

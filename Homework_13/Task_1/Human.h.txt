@@ -1,0 +1,38 @@
+#pragma once
+#include <iostream>
+#include <string>
+
+class Human {
+private:
+    std::string firstName;
+    std::string lastName;
+    int age;
+    double weight;
+    double height;
+
+public:
+    Human();
+    Human(std::string fName, std::string lName, int a, double w, double h);
+    ~Human();
+
+    double calculateBMI() const;
+    int calculateYearOfBirth() const;
+    void print() const;
+    void setAttributes(std::string fName, std::string lName, int a, double w, double h);
+
+    // Геттеры и сеттеры
+    std::string getFirstName() const;
+    void setFirstName(const std::string& fName);
+
+    std::string getLastName() const;
+    void setLastName(const std::string& lName);
+
+    int getAge() const;
+    void setAge(int a);
+
+    double getWeight() const;
+    void setWeight(double w);
+
+    double getHeight() const;
+    void setHeight(double h);
+};

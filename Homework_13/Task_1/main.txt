@@ -1,0 +1,38 @@
+#include <iostream>
+#include "Human.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Статический объект
+    Human human1;
+    human1.setAttributes("Иван", "Иванов", 30, 70.0, 1.75);
+    human1.print();
+    std::cout << std::endl;
+
+    // Динамический объект
+    Human* human2 = new Human;
+    human2->setAttributes("Алексей", "Алексеев", 25, 80.0, 1.80);
+    human2->print();
+    std::cout << std::endl;
+
+    // Использование параметризованного конструктора
+    Human human3("Мария", "Петрова", 28, 60.0, 1.65);
+    human3.print();
+    std::cout << std::endl;
+
+    // Динамический объект с параметризованным конструктором
+    Human* human4 = new Human("Николай", "Николаев", 35, 90.0, 1.85);
+    human4->print();
+    std::cout << std::endl;
+
+    // Проверка геттеров и сеттеров
+    human4->setFirstName("Николай Иванович");
+    human4->print();
+    std::cout << std::endl;
+
+    delete human2;
+    delete human4;
+
+    return 0;
+}
