@@ -1,0 +1,72 @@
+#include <iostream>
+#include "Car.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Статический объект
+    Car car1;
+    car1.setAttributes("Toyota", "Red", "Sedan", 2000, 150000);
+    car1.display();
+    std::cout << "Average Fuel Consumption: " << car1.averageFuelConsumption() << "L/100 km\n";
+    car1.reduceMileage(10000);
+    std::cout << std::endl;
+    car1.display();
+
+    std::cout << std::endl;
+
+    // Динамический объект
+    Car* car2 = new Car("Ford", "Blue", "Hatchback", 1800, 100000);
+    car2->display();
+    std::cout << "Average Fuel Consumption: " << car2->averageFuelConsumption() << "L/100 km\n";
+    car2->reduceMileage(5000);
+    std::cout << std::endl;
+    car2->display();
+
+    std::cout << std::endl;
+
+    // Использование параметризованного конструктора с перечислением
+    Car car3("BMW", "Black", "Coupe", 3000, age::HIGH);
+    car3.display();
+    std::cout << "Average Fuel Consumption: " << car3.averageFuelConsumption() << "L/100 km\n";
+    car3.reduceMileage(2000);
+    std::cout << std::endl;
+    car3.display();
+
+    std::cout << std::endl;
+
+    // Динамический объект с параметризованным конструктором и перечислением
+    Car* car4 = new Car("Audi", "White", "SUV", 2500, age::LOW);
+    car4->display();
+    std::cout << "Average Fuel Consumption: " << car4->averageFuelConsumption() << "L/100 km\n";
+    car4->reduceMileage(3000);
+    std::cout << std::endl;
+    car4->display();
+    std::cout << std::endl;
+
+    // Проверка перегрузки операторов
+    std::cout << "Перед инкрементом: " << car1.getEngineVolume() << " cc" << std::endl;
+    ++car1;
+    std::cout << "После префиксного инкремента: " << car1.getEngineVolume() << " cc" << std::endl;
+    car1++;
+    std::cout << "После постфиксного инкремента: " << car1.getEngineVolume() << " cc" << std::endl;
+    --car1;
+    std::cout << "После префиксного декремента: " << car1.getEngineVolume() << " cc" << std::endl;
+    car1--;
+    std::cout << "После постфиксного декремента: " << car1.getEngineVolume() << " cc" << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Сравнение по объему двигателя: " << std::endl;
+    std::cout << (car1 < *car2 ? "car1 < car2" : "car1 >= car2") << std::endl;
+    std::cout << (car1 > car3 ? "car1 > car3" : "car1 <= car3") << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Вывод объектов через перегруженный оператор вывода:" << std::endl;
+    std::cout << *car2 << std::endl;
+    std::cout << *car4 << std::endl;
+
+    delete car2;
+    delete car4;
+
+    return 0;
+}

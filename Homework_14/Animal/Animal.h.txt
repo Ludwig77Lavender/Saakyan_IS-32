@@ -1,0 +1,58 @@
+#pragma once
+#include <iostream>
+#include <string>
+
+namespace age {
+    enum AgeGroup {
+        YOUNG = 1,
+        ADULT = 5,
+        SENIOR = 10
+    };
+}
+
+class Animal {
+private:
+    std::string name;
+    std::string species;
+    std::string color;
+    int age;
+    float weight;
+
+public:
+    Animal();
+    Animal(std::string n, std::string s, std::string c, int a, float w);
+    Animal(std::string n, std::string s, std::string c, age::AgeGroup a, float w);
+    ~Animal();
+
+    void setAttributes(std::string n, std::string s, std::string c, int a, float w);
+    void display() const;
+    void increaseWeight(int feedingDays);
+    void changeName(const std::string& newName);
+
+    // Перегрузка операторов
+    Animal& operator++();   // Префиксный инкремент
+    Animal operator++(int); // Постфиксный инкремент
+    Animal& operator--();   // Префиксный декремент
+    Animal operator--(int); // Постфиксный декремент
+
+    bool operator<(const Animal& other) const;
+    bool operator>(const Animal& other) const;
+
+    friend std::ostream& operator<<(std::ostream& os, const Animal& animal);
+
+    // Геттеры и сеттеры
+    std::string getName() const;
+    void setName(const std::string& n);
+
+    std::string getSpecies() const;
+    void setSpecies(const std::string& s);
+
+    std::string getColor() const;
+    void setColor(const std::string& c);
+
+    int getAge() const;
+    void setAge(int a);
+
+    float getWeight() const;
+    void setWeight(float w);
+};

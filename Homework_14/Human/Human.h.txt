@@ -1,0 +1,53 @@
+#pragma once
+#include <iostream>
+#include <string>
+
+namespace age {
+    enum AgeGroup {
+        CHILD,
+        TEENAGER,
+        ADULT,
+        SENIOR
+    };
+}
+
+class Human {
+private:
+    std::string firstName;
+    std::string lastName;
+    int age;
+    double weight;
+    double height;
+    age::AgeGroup ageGroup; // Поле перечисления
+
+public:
+    Human();
+    Human(std::string fName, std::string lName, int a, double w, double h, age::AgeGroup ageGrp);
+    ~Human();
+
+    double calculateBMI() const;
+    int calculateYearOfBirth() const;
+    void print() const;
+    void setAttributes(std::string fName, std::string lName, int a, double w, double h, age::AgeGroup ageGrp);
+
+    // Перегруженные операторы
+    Human& operator++();
+    Human& operator--();
+    bool operator<(const Human& other) const;
+    bool operator>(const Human& other) const;
+    friend std::ostream& operator<<(std::ostream& os, const Human& h);
+
+    // Геттеры и сеттеры
+    std::string getFirstName() const;
+    void setFirstName(const std::string& fName);
+    std::string getLastName() const;
+    void setLastName(const std::string& lName);
+    int getAge() const;
+    void setAge(int a);
+    double getWeight() const;
+    void setWeight(double w);
+    double getHeight() const;
+    void setHeight(double h);
+    age::AgeGroup getAgeGroup() const;
+    void setAgeGroup(age::AgeGroup ageGrp);
+};

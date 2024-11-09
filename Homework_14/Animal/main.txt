@@ -1,0 +1,77 @@
+#include <iostream>
+#include "Animal.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Статический объект
+    Animal animal1;
+    animal1.setAttributes("Bella", "Dog", "Brown", 5, 20.0f);
+    animal1.display();
+    animal1.increaseWeight(30);
+    std::cout << std::endl;
+    animal1.display();
+    animal1.changeName("Bella the Brave");
+    std::cout << std::endl;
+    animal1.display();
+    std::cout << std::endl;
+
+    // Динамический объект
+    Animal* animal2 = new Animal("Max", "Cat", "Black", 3, 5.0f);
+    animal2->display();
+    animal2->increaseWeight(20);
+    std::cout << std::endl;
+    animal2->display();
+    animal2->changeName("Maximus");
+    std::cout << std::endl;
+    animal2->display();
+    std::cout << std::endl;
+
+    // Использование параметризованного конструктора
+    Animal animal3("Oscar", "Rabbit", "White", age::ADULT, 2.5f);
+    animal3.display();
+    animal3.increaseWeight(10);
+    std::cout << std::endl;
+    animal3.display();
+    animal3.changeName("Oscar the Great");
+    std::cout << std::endl;
+    animal3.display();
+    std::cout << std::endl;
+
+    // Динамический объект с параметризованным конструктором
+    Animal* animal4 = new Animal("Luna", "Parrot", "Green", age::YOUNG, 0.4f);
+    animal4->display();
+    animal4->increaseWeight(15);
+    std::cout << std::endl;
+    animal4->display();
+    animal4->changeName("Luna the Wise");
+    std::cout << std::endl;
+    animal4->display();
+    std::cout << std::endl;
+
+    // Проверка перегрузки операторов
+    std::cout << "Перед инкрементом: " << animal1.getWeight() << " kg" << std::endl;
+    ++animal1;
+    std::cout << "После префиксного инкремента: " << animal1.getWeight() << " kg" << std::endl;
+    animal1++;
+    std::cout << "После постфиксного инкремента: " << animal1.getWeight() << " kg" << std::endl;
+    --animal1;
+    std::cout << "После префиксного декремента: " << animal1.getWeight() << " kg" << std::endl;
+    animal1--;
+    std::cout << "После постфиксного декремента: " << animal1.getWeight() << " kg" << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Сравнение по весу: " << std::endl;
+    std::cout << (animal1 < *animal2 ? "animal1 < animal2" : "animal1 >= animal2") << std::endl;
+    std::cout << (animal1 > animal3 ? "animal1 > animal3" : "animal1 <= animal3") << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Вывод объектов через перегруженный оператор вывода:" << std::endl;
+    std::cout << *animal2 << std::endl;
+    std::cout << *animal4 << std::endl;
+
+    delete animal2;
+    delete animal4;
+
+    return 0;
+}

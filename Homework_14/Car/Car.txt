@@ -1,0 +1,136 @@
+#include "Car.h"
+#include <iostream>
+#include <cmath>
+
+Car::Car() : brand(""), color(""), bodyType(""), engineVolume(0), mileage(0) {
+    std::cout << "Конструктор по умолчанию вызван" << std::endl;
+}
+
+Car::Car(std::string b, std::string c, std::string bt, int ev, int m)
+    : brand(b), color(c), bodyType(bt), engineVolume(ev), mileage(m) {
+    std::cout << "Параметризованный конструктор вызван" << std::endl;
+}
+
+Car::Car(std::string b, std::string c, std::string bt, int ev, age::Mileage m)
+    : brand(b), color(c), bodyType(bt), engineVolume(ev), mileage(m) {
+    std::cout << "Конструктор с перечислением вызван" << std::endl;
+}
+
+Car::~Car() {
+    std::cout << "Деструктор вызван для " << brand << std::endl;
+}
+
+void Car::setAttributes(std::string b, std::string c, std::string bt, int ev, int m) {
+    brand = b;
+    color = c;
+    bodyType = bt;
+    engineVolume = ev;
+    mileage = m;
+}
+
+void Car::display() const {
+    std::cout << "Brand: " << brand << std::endl
+        << "Color: " << color << std::endl
+        << "Body Type: " << bodyType << std::endl
+        << "Engine Volume: " << engineVolume << " cc\n"
+        << "Mileage: " << mileage << " km\n";
+}
+
+float Car::averageFuelConsumption() const {
+    return static_cast<float>(engineVolume) / mileage * 100;
+}
+
+void Car::reduceMileage(int reduction) {
+    mileage -= reduction;
+}
+
+// Перегрузка операторов
+Car& Car::operator++() {
+    ++engineVolume;
+    return *this;
+}
+
+Car Car::operator++(int) {
+    Car temp = *this;
+    engineVolume++;
+    return temp;
+}
+
+Car& Car::operator--() {
+    --engineVolume;
+    return *this;
+}
+
+Car Car::operator--(int) {
+    Car temp = *this;
+    engineVolume--;
+    return temp;
+}
+
+bool Car::operator<(const Car& other) const {
+    return engineVolume < other.engineVolume;
+}
+
+bool Car::operator>(const Car& other) const {
+    return engineVolume > other.engineVolume;
+}
+
+std::ostream& operator<<(std::ostream& os, const Car& car) {
+    os << "Brand: " << car.brand << std::endl
+        << "Color: " << car.color << std::endl
+        << "Body Type: " << car.bodyType << std::endl
+        << "Engine Volume: " << car.engineVolume << " cc\n"
+        << "Mileage: " << car.mileage << " km\n";
+    return os;
+}
+
+// Геттеры и сеттеры
+std::string Car::getBrand() const {
+    return brand;
+}
+
+void Car::setBrand(const std::string& b) {
+    if (!b.empty()) {
+        brand = b;
+    }
+}
+
+std::string Car::getColor() const {
+    return color;
+}
+
+void Car::setColor(const std::string& c) {
+    if (!c.empty()) {
+        color = c;
+    }
+}
+
+std::string Car::getBodyType() const {
+    return bodyType;
+}
+
+void Car::setBodyType(const std::string& bt) {
+    if (!bt.empty()) {
+        bodyType = bt;
+    }
+}
+
+int Car::getEngineVolume() const {
+    return engineVolume;
+}
+
+void Car::setEngineVolume(int ev) {
+    if (ev > 0) {
+        engineVolume = ev;
+    }
+}
+
+int Car::getMileage() const {
+    return mileage;
+}
+
+void Car::setMileage(int m) {
+    if (m > 0) {
+        mileage = m;
+    }
+}
