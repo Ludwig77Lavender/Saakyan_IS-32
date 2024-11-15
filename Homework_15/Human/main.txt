@@ -1,0 +1,40 @@
+#include <iostream>
+#include "Human.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Статический объект
+    Human human1("Иван", "Иванов", 30, 70.0, 1.75);
+    std::cout << human1 << std::endl;
+
+    // Динамический объект
+    Human* human2 = new Human("Алексей", "Алексеев", 25, 80.0, 1.80);
+    std::cout << *human2 << std::endl;
+
+    // Использование параметризованного конструктора
+    Human human3("Мария", "Петрова", 28, 60.0, 1.65);
+    std::cout << human3 << std::endl;
+
+    // Динамический объект с параметризованным конструктором
+    Human* human4 = new Human("Николай", "Николаев", 35, 90.0, 1.85);
+    std::cout << *human4 << std::endl;
+
+    // Геттеры и сеттеры
+    human4->setFirstName("Николай Иванович");
+    std::cout << *human4 << std::endl;
+
+    // Перегрузка
+    ++human1;
+    std::cout << "После увеличения роста: " << human1 << std::endl;
+
+    --human1;
+    std::cout << "После уменьшения роста: " << human1 << std::endl;
+
+    std::cout << "Сравнение по росту: " << (human1 < *human4 ? "human1 ниже human4" : "human1 выше или равен human4") << std::endl;
+
+    delete human2;
+    delete human4;
+
+    return 0;
+}
