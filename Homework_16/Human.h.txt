@@ -1,0 +1,57 @@
+#pragma once
+#include <iostream>
+#include <string>
+
+class Human {
+private:
+    std::string firstName;
+    std::string lastName;
+    int age;
+    double weight;
+    double height;
+public:
+    Human(std::string fName, std::string lName, int a, double w, double h);
+    ~Human();
+
+    double calculateBMI();
+    int calculateYearOfBirth();
+    void print();
+    void setAttributes(std::string fName, std::string lName, int a, double w, double h);
+    
+    Human& operator++();
+    Human& operator--();
+    bool operator<(const Human& other);
+    bool operator>(const Human& other);
+    friend std::ostream& operator<<(std::ostream& os, Human& h);
+
+    std::string getFirstName();
+    void setFirstName(std::string fName);
+    std::string getLastName();
+    void setLastName(std::string lName);
+    int getAge();
+    void setAge(int a);
+    double getWeight();
+    void setWeight(double w);
+    double getHeight();
+    void setHeight(double h);
+};
+
+class Adult : public Human {
+private:
+    std::string job;
+public:
+    Adult(std::string fName, std::string lName, int a, double w, double h, std::string job);
+    std::string getJob();
+    void setJob(std::string job);
+    void print();
+};
+
+class Child : public Human {
+private:
+    std::string school;
+public:
+    Child(std::string fName, std::string lName, int a, double w, double h, std::string school);
+    std::string getSchool();
+    void setSchool(std::string school);
+    void print();
+};

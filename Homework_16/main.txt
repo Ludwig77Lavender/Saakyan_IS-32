@@ -1,0 +1,30 @@
+#include <iostream>
+#include "Human.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    Adult adult1("Иван", "Иванов", 30, 70.0, 1.75, "Engineer");
+    std::cout << adult1 << std::endl;
+    Child* child1 = new Child("Алексей", "Алексеев", 10, 30.0, 1.40, "School #1");
+    std::cout << *child1 << std::endl;
+
+    Adult adult2("Мария", "Петрова", 28, 60.0, 1.65, "Teacher");
+    std::cout << adult2 << std::endl;
+    Child* child2 = new Child("Николай", "Николаев", 12, 35.0, 1.50, "School #2");
+    std::cout << *child2 << std::endl;
+
+    adult1.setJob("Manager");
+    std::cout << adult1 << std::endl;
+
+    ++adult1;
+    std::cout << "После увеличения роста: " << adult1 << std::endl;
+    --adult1;
+    std::cout << "После уменьшения роста: " << adult1 << std::endl;
+    std::cout << "Сравнение по росту: " << (adult1 < *child1 ? "adult1 ниже child1" : "adult1 выше или равен child1") << std::endl;
+
+    delete child1;
+    delete child2;
+
+    return 0;
+}
