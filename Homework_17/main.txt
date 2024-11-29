@@ -1,0 +1,33 @@
+#include <iostream>
+#include "Human.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    Human* humans[4];
+
+    Adult adult1("Иван", "Иванов", 30, 70.0, 1.75, "Engineer");
+    humans[0] = &adult1;
+    
+    Child* child1 = new Child("Алексей", "Алексеев", 10, 30.0, 1.40, "School #1");
+    humans[1] = child1;
+
+    Adult adult2("Мария", "Петрова", 28, 60.0, 1.65, "Teacher");
+    humans[2] = &adult2;
+
+    Child* child2 = new Child("Николай", "Николаев", 12, 35.0, 1.50, "School #2");
+    humans[3] = child2;
+
+    std::cout << std::endl;
+
+    // Переопределённые функции
+    for (int i = 0; i < 4; ++i) {
+        humans[i]->print();
+        std::cout << std::endl;
+    }
+
+    delete child1;
+    delete child2;
+
+    return 0;
+}
