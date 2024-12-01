@@ -1,0 +1,52 @@
+#include <iostream>
+#include <string>
+#include "Human.h"
+
+// using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    Human* humans[4];
+
+    Adult* adult1 = new Adult("Иван", "Иванов", 30, 70.0, 1.75, "Программист");
+    humans[0] = adult1;
+
+    Child* child1 = new Child("Алексей", "Алексеев", 10, 30.0, 1.40, "Школа №1");
+    humans[1] = child1;
+
+    Adult* adult2 = new Adult("Мария", "Петрова", 28, 60.0, 1.65, "Учитель");
+    humans[2] = adult2;
+
+    Child* child2 = new Child("Николай", "Николаев", 12, 35.0, 1.50, "Школа №2");
+    humans[3] = child2;
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < 4; ++i) {
+        humans[i]->print();
+        std::cout << std::endl;
+    }
+
+    int choice;
+    do {
+        std::cout << "Выберите объект для отображения информации (1-4) или 0 для выхода: ";
+        std::cin >> choice;
+        std::cout << std::endl;
+
+        if (choice >= 1 && choice <= 4) {
+            humans[choice - 1]->print();
+            std::cout << std::endl;
+        }
+        else if (choice != 0) {
+            std::cout << "Неверный ввод. Попробуйте снова." << std::endl;
+        }
+    } while (choice != 0);
+
+    delete adult1;
+    delete child1;
+    delete adult2;
+    delete child2;
+
+    return 0;
+}
