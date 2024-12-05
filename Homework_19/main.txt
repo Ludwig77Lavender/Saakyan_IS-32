@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+#include "Human.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    Human* humans[5];
+
+    Adult* adult1 = new Adult("Иван", "Иванов", 30, 70.0, 1.75, "Программист");
+    humans[0] = adult1;
+
+    Child* child1 = new Child("Алексей", "Алексеев", 10, 30.0, 1.40, "Школа №1");
+    humans[1] = child1;
+
+    Adult* adult2 = new Adult("Мария", "Петрова", 28, 60.0, 1.65, "Учитель");
+    humans[2] = adult2;
+
+    Child* child2 = new Child("Николай", "Николаев", 12, 35.0, 1.50, "Школа №2");
+    humans[3] = child2;
+
+    Teen* teen1 = new Teen("Сергей", "Сергеев", 15, 50.0, 1.60, "Стажер", "Школа №3", "Футбол");
+    humans[4] = teen1;
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < 5; ++i) {
+        humans[i]->print();
+        std::cout << std::endl;
+    }
+
+    int choice;
+    do {
+        std::cout << "Выберите объект для отображения информации (1-5) или 0 для выхода: ";
+        std::cin >> choice;
+        std::cout << std::endl;
+
+        if (choice >= 1 && choice <= 5) {
+            humans[choice - 1]->print();
+            std::cout << std::endl;
+        }
+        else if (choice != 0) {
+            std::cout << "Неверный ввод. Попробуйте снова." << std::endl;
+        }
+    } while (choice != 0);
+
+    // Запись данных в файл по пути C:\Users\User\Documents\Project\C++\PracticeC\PracticeC
+    std::ofstream outFile("humans_data.txt");
+    for (int i = 0; i < 5; ++i) {
+        humans[i]->saveToFile(outFile);
+    }
+    outFile.close();
+
+    for (int i = 0; i < 5; ++i) {
+        delete humans[i];
+    }
+
+    return 0;
+}

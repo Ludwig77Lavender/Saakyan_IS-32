@@ -1,0 +1,195 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include "Human.h"
+
+Human::Human(std::string fName, std::string lName, int a, double w, double h)
+    : firstName(fName), lastName(lName), age(a), weight(w), height(h) {
+    std::cout << "Параметризованный конструктор вызван" << std::endl;
+}
+
+Human::~Human() {
+    std::cout << "Деструктор вызван для " << firstName << " " << lastName << std::endl;
+}
+
+double Human::calculateBMI() {
+    return (weight / (height * height));
+}
+
+int Human::calculateYearOfBirth() {
+    int currentYear = 2024;
+    return currentYear - age;
+}
+
+void Human::setAttributes(std::string fName, std::string lName, int a, double w, double h) {
+    firstName = fName;
+    lastName = lName;
+    age = a;
+    weight = w;
+    height = h;
+}
+
+void Human::readAttributes() {
+    std::cout << "Введите имя: ";
+    std::cin >> firstName;
+    std::cout << "Введите фамилию: ";
+    std::cin >> lastName;
+    std::cout << "Введите возраст: ";
+    std::cin >> age;
+    std::cout << "Введите вес: ";
+    std::cin >> weight;
+    std::cout << "Введите рост: ";
+    std::cin >> height;
+}
+
+void Human::saveToFile(std::ofstream& file) {
+    file << firstName << " " << lastName << " " << age << " " << weight << " " << height << std::endl;
+}
+
+Human& Human::operator++() {
+    height += 0.1;
+    return *this;
+}
+
+Human& Human::operator--() {
+    height -= 0.1;
+    return *this;
+}
+
+bool Human::operator<(const Human& other) {
+    return height < other.height;
+}
+
+bool Human::operator>(const Human& other) {
+    return height > other.height;
+}
+
+std::ostream& operator<<(std::ostream& os, Human& h) {
+    os << "Name: " << h.firstName << " " << h.lastName << std::endl;
+    os << "Age: " << h.age << std::endl;
+    os << "Weight: " << h.weight << std::endl;
+    os << "Height: " << h.height << std::endl;
+    os << "BMI: " << h.calculateBMI() << std::endl;
+    os << "Year of Birth: " << h.calculateYearOfBirth() << std::endl;
+    return os;
+}
+
+std::string Human::getFirstName() {
+    return firstName;
+}
+
+void Human::setFirstName(std::string fName) {
+    firstName = fName;
+}
+
+std::string Human::getLastName() {
+    return lastName;
+}
+
+void Human::setLastName(std::string lName) {
+    lastName = lName;
+}
+
+int Human::getAge() {
+    return age;
+}
+
+void Human::setAge(int a) {
+    age = a;
+}
+
+double Human::getWeight() {
+    return weight;
+}
+
+void Human::setWeight(double w) {
+    weight = w;
+}
+
+double Human::getHeight() {
+    return height;
+}
+
+void Human::setHeight(double h) {
+    height = h;
+}
+
+Adult::Adult(std::string fName, std::string lName, int a, double w, double h, std::string j)
+    : Human(fName, lName, a, w, h), job(j) {
+}
+
+Adult::~Adult() {
+    std::cout << "Деструктор вызван для " << getFirstName() << " " << getLastName() << std::endl;
+}
+
+void Adult::print() {
+    std::cout << "Name: " << getFirstName() << " " << getLastName() << std::endl;
+    std::cout << "Age: " << getAge() << std::endl;
+    std::cout << "Weight: " << getWeight() << std::endl;
+    std::cout << "Height: " << getHeight() << std::endl;
+    std::cout << "BMI: " << calculateBMI() << std::endl;
+    std::cout << "Year of Birth: " << calculateYearOfBirth() << std::endl;
+    std::cout << "Job: " << job << std::endl;
+}
+
+std::string Adult::getJob() {
+    return job;
+}
+
+void Adult::setJob(std::string j) {
+    job = j;
+}
+
+Child::Child(std::string fName, std::string lName, int a, double w, double h, std::string s)
+    : Human(fName, lName, a, w, h), school(s) {
+}
+
+Child::~Child() {
+    std::cout << "Деструктор вызван для " << getFirstName() << " " << getLastName() << std::endl;
+}
+
+void Child::print() {
+    std::cout << "Name: " << getFirstName() << " " << getLastName() << std::endl;
+    std::cout << "Age: " << getAge() << std::endl;
+    std::cout << "Weight: " << getWeight() << std::endl;
+    std::cout << "Height: " << getHeight() << std::endl;
+    std::cout << "BMI: " << calculateBMI() << std::endl;
+    std::cout << "Year of Birth: " << calculateYearOfBirth() << std::endl;
+    std::cout << "School: " << school << std::endl;
+}
+
+std::string Child::getSchool() {
+    return school;
+}
+
+void Child::setSchool(std::string s) {
+    school = s;
+}
+
+Teen::Teen(std::string fName, std::string lName, int a, double w, double h, std::string job, std::string school, std::string hby)
+    : Human(fName, lName, a, w, h), Adult(fName, lName, a, w, h, job), Child(fName, lName, a, w, h, school), hobby(hby) {
+}
+
+Teen::~Teen() {
+    std::cout << "Деструктор вызван для " << getFirstName() << " " << getLastName() << std::endl;
+}
+
+void Teen::print() {
+    std::cout << "Name: " << getFirstName() << " " << getLastName() << std::endl;
+    std::cout << "Age: " << getAge() << std::endl;
+    std::cout << "Weight: " << getWeight() << std::endl;
+    std::cout << "Height: " << getHeight() << std::endl;
+    std::cout << "BMI: " << calculateBMI() << std::endl;
+    std::cout << "Year of Birth: " << calculateYearOfBirth() << std::endl;
+    std::cout << "Job: " << getJob() << std::endl;
+    std::cout << "School: " << getSchool() << std::endl;
+    std::cout << "Hobby: " << hobby << std::endl;
+}
+
+std::string Teen::getHobby() {
+    return hobby;
+}
+
+void Teen::setHobby(std::string hby) {
+    hobby = hby;
+}
