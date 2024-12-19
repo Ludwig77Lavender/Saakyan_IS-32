@@ -1,0 +1,280 @@
+======================================[ main.cpp ]======================================
+
+#include <iostream>
+#include "ShoppingCenter.h"
+#include "Store.h"
+#include "Schedule.h"
+#include "Person.h"
+#include "Client.h"
+#include "Staff.h"
+#include "Cleaner.h"
+#include "Security.h"
+
+int main() {
+    // Торговый центр
+    ShoppingCenter center("Мега Молл", "ул. Главная, 123", "9:00 - 21:00");
+    std::cout << "Информация о торговом центре:\n" << center.getInfo() << "\n\n";
+
+    // Магазин
+    Store store("Мега Молл", "ул. Главная, 123", "9:00 - 21:00", "Магазин электроники");
+    std::cout << "Информация о магазине:\n" << store.getStoreInfo() << "\n\n";
+
+    // График работы
+    Schedule schedule("Мега Молл", "ул. Главная, 123", "9:00 - 21:00", "9:00", "21:00");
+    std::cout << "График работы:\n" << schedule.getScheduleInfo() << "\n\n";
+
+    // Клиент
+    Client client("Иван Иванов", 30, "+79876543210");
+    std::cout << "Информация о клиенте:\n" << client.getClientInfo() << "\n\n";
+
+    // Персонал
+    Cleaner cleaner("Анна Смирнова", 45, "Мега Молл", "ул. Главная, 123", "9:00 - 21:00", 2000.00);
+    std::cout << "Информация об уборщике:\n" << cleaner.getCleanerInfo() << "\n\n";
+
+    Security security("Пётр Сидоров", 40, "Мега Молл", "ул. Главная, 123", "9:00 - 21:00", 2500.00);
+    std::cout << "Информация об охраннике:\n" << security.getSecurityInfo() << "\n\n";
+
+    return 0;
+}
+
+======================================[ ShoppingCenter.h ]======================================
+
+#pragma once
+#include <string>
+
+class ShoppingCenter {
+protected:
+    std::string name;
+    std::string address;
+    std::string schedule;
+
+public:
+    ShoppingCenter(std::string name, std::string address, std::string schedule);
+    virtual ~ShoppingCenter() = default;
+    std::string getInfo() const;
+};
+
+======================================[ ShoppingCenter.cpp ]======================================
+
+#include "ShoppingCenter.h"
+
+ShoppingCenter::ShoppingCenter(std::string name, std::string address, std::string schedule)
+    : name(name), address(address), schedule(schedule) {}
+
+std::string ShoppingCenter::getInfo() const {
+    return "\tНазвание: " + name + "\n\tАдрес: " + address + "\n\tГрафик работы: " + schedule;
+}
+
+======================================[ Store.h ]======================================
+
+#pragma once
+#include "ShoppingCenter.h"
+
+class Store : public ShoppingCenter {
+private:
+    std::string storeName;
+
+public:
+    Store(std::string centerName, std::string address, std::string schedule, std::string storeName);
+    std::string getStoreInfo() const;
+};
+
+======================================[ Store.cpp ]======================================
+
+#include "Store.h"
+
+Store::Store(std::string centerName, std::string address, std::string schedule, std::string storeName)
+    : ShoppingCenter(centerName, address, schedule), storeName(storeName) {}
+
+std::string Store::getStoreInfo() const {
+    return getInfo() + "\n\tНазвание магазина: " + storeName;
+}
+
+
+======================================[ Schedule.h ]======================================
+
+#pragma once
+#include "ShoppingCenter.h"
+
+class Schedule : public ShoppingCenter {
+private:
+    std::string openTime;
+    std::string closeTime;
+
+public:
+    Schedule(std::string name, std::string address, std::string schedule, std::string openTime, std::string closeTime);
+    std::string getScheduleInfo() const;
+};
+
+======================================[ Schedule.cpp ]======================================
+
+#include "Schedule.h"
+
+Schedule::Schedule(std::string name, std::string address, std::string schedule, std::string openTime, std::string closeTime)
+    : ShoppingCenter(name, address, schedule), openTime(openTime), closeTime(closeTime) {}
+
+std::string Schedule::getScheduleInfo() const {
+    return getInfo() + "\n\tНачало работы: " + openTime + "\n\tОкончание работы: " + closeTime;
+}
+
+======================================[ Person.h ]======================================
+
+#pragma once
+#include <string>
+
+class Person {
+protected:
+    std::string name;
+    int age;
+
+public:
+    Person(std::string name, int age);
+    virtual ~Person() = default;
+    std::string getPersonInfo() const;
+};
+
+======================================[ Person.cpp ]======================================
+
+#include "Person.h"
+
+Person::Person(std::string name, int age) : name(name), age(age) {}
+
+std::string Person::getPersonInfo() const {
+    return "\tИмя: " + name + "\n\tВозраст: " + std::to_string(age);
+}
+
+======================================[ Client.h ]======================================
+
+#pragma once
+#include "Person.h"
+
+class Client : public Person {
+private:
+    std::string phoneNumber;
+
+public:
+    Client(std::string name, int age, std::string phoneNumber);
+    std::string getClientInfo() const;
+};
+
+======================================[ Client.cpp ]======================================
+
+#include "Client.h"
+
+Client::Client(std::string name, int age, std::string phoneNumber)
+    : Person(name, age), phoneNumber(phoneNumber) {}
+
+std::string Client::getClientInfo() const {
+    return getPersonInfo() + "\n\tТелефон: " + phoneNumber;
+}
+
+======================================[ Staff.h ]======================================
+
+#pragma once
+#include "Person.h"
+#include "ShoppingCenter.h"
+
+class Staff : public Person, public ShoppingCenter {
+protected:
+    std::string position;
+    double salary;
+
+public:
+    Staff(std::string name, int age, std::string centerName, std::string address, std::string schedule, std::string position, double salary);
+    std::string getStaffInfo() const;
+};
+
+
+======================================[ Staff.cpp ]======================================
+
+#include "Staff.h"
+
+Staff::Staff(std::string name, int age, std::string centerName, std::string address, std::string schedule, std::string position, double salary)
+    : Person(name, age), ShoppingCenter(centerName, address, schedule), position(position), salary(salary) {}
+
+std::string Staff::getStaffInfo() const {
+    return getPersonInfo() + "\n\tДолжность: " + position + "\n\tЗарплата: " + std::to_string(salary);
+}
+
+======================================[ Cleaner.h ]======================================
+
+#pragma once
+#include "Staff.h"
+
+class Cleaner : public Staff {
+public:
+    Cleaner(std::string name, int age, std::string centerName, std::string address, std::string schedule, double salary);
+    std::string getCleanerInfo() const;
+};
+
+======================================[ Cleaner.cpp ]======================================
+
+#include "Cleaner.h"
+
+Cleaner::Cleaner(std::string name, int age, std::string centerName, std::string address, std::string schedule, double salary)
+    : Staff(name, age, centerName, address, schedule, "Уборщик", salary) {}
+
+std::string Cleaner::getCleanerInfo() const {
+    return getStaffInfo();
+}
+
+======================================[ Security.h ]======================================
+
+#pragma once
+#include "Staff.h"
+
+class Security : public Staff {
+public:
+    Security(std::string name, int age, std::string centerName, std::string address, std::string schedule, double salary);
+    std::string getSecurityInfo() const;
+};
+
+======================================[ Security.cpp ]======================================
+
+#include "Security.h"
+
+Security::Security(std::string name, int age, std::string centerName, std::string address, std::string schedule, double salary)
+    : Staff(name, age, centerName, address, schedule, "Охранник", salary) {}
+
+std::string Security::getSecurityInfo() const {
+    return getStaffInfo();
+}
+
+==========================================================================================
+==========================================[ ВЫВОД ]=======================================
+==========================================================================================
+
+Информация о торговом центре:
+	Название: Мега Молл
+	Адрес: ул. Главная, 123
+	График работы: 9:00 - 21:00
+
+Информация о магазине:
+	Название: Мега Молл
+	Адрес: ул. Главная, 123
+	График работы: 9:00 - 21:00
+	Название магазина: Магазин электроники
+
+График работы:
+	Название: Мега Молл
+	Адрес: ул. Главная, 123
+	График работы: 9:00 - 21:00
+	Начало работы: 9:00
+	Окончание работы: 21:00
+
+Информация о клиенте:
+	Имя: Иван Иванов
+	Возраст: 30
+	Телефон: +79876543210
+
+Информация об уборщике:
+	Имя: Анна Смирнова
+	Возраст: 45
+	Должность: Уборщик
+	Зарплата: 2000.000000
+
+Информация об охраннике:
+	Имя: Пётр Сидоров
+	Возраст: 40
+	Должность: Охранник
+	Зарплата: 2500.000000

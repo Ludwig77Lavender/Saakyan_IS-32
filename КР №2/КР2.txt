@@ -1,0 +1,340 @@
+==========[ main.cpp ]==========
+
+#include <iostream>
+#include <string>
+#include "Mall.h"
+#include "Store.h"
+#include "Staff.h"
+#include "Cleaner.h"
+#include "Security.h"
+#include "Customer.h"
+#include "WorkingSchedule.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    // Торговый центр
+    Mall mall("City Mall", "д. 43 ул. Пушкина", "9:00 - 21:00");
+
+    // Магазины
+    Store store1("Fashion Store");
+    Store store2("Electronics Hub");
+
+    // Добавление магазинов в торговый центр
+    mall.addStore(store1);
+    mall.addStore(store2);
+
+    // Персонал для Fashion Store
+    Cleaner cleaner1("Алина", 30);
+    Security security1("Виктор", 35);
+    store1.addStaff(&cleaner1);
+    store1.addStaff(&security1);
+
+    // Персонал для Electronics Hub
+    Cleaner cleaner2("Анна", 28);
+    Security security2("Дмитрий", 40);
+    store2.addStaff(&cleaner2);
+    store2.addStaff(&security2);
+
+    // Добавление персонала торгового центра
+    mall.addStaff(&cleaner1);
+    mall.addStaff(&security1);
+    mall.addStaff(&cleaner2);
+    mall.addStaff(&security2);
+
+    // Вывод информации о торговом центре
+    std::cout << "Информация о торговом центре:" << std::endl;
+    mall.listStores();
+    std::cout << "График работы: " << mall.getWorkingSchedule() << std::endl; // Добавлено
+    std::cout << std::endl;
+
+    // Персонал магазинов
+    std::cout << "Персонал в магазине Fashion Store:" << std::endl;
+    store1.listStaff();
+    std::cout << std::endl;
+
+    std::cout << "Персонал в магазине Electronics Hub:" << std::endl;
+    store2.listStaff();
+    std::cout << std::endl;
+
+    // Персонал торгового центра
+    mall.listStaff();
+
+    return 0;
+}
+
+==========[ Cleaner.cpp ]==========
+
+#include "Cleaner.h"
+#include <iostream>
+
+Cleaner::Cleaner(std::string name, int age) : Staff(name, age, "Уборщик") {}
+
+void Cleaner::showInfo() {
+    std::cout << "Уборщик: " << getName() << ", Возраст: " << getAge() << std::endl;
+}
+
+==========[ Cleaner.h ]==========
+
+#pragma once
+#include "Staff.h"
+
+class Cleaner : public Staff {
+public:
+    Cleaner(std::string name, int age);
+    void showInfo();
+};
+
+==========[ Customer.cpp ]==========
+
+#include "Customer.h"
+#include <iostream>
+
+Customer::Customer(std::string name, int age) : Human(name, age) {}
+
+void Customer::showInfo() {
+    std::cout << "Клиент: " << name << ", Возраст: " << age << std::endl;
+}
+
+==========[ Customer.h ]==========
+
+#pragma once
+#include "Human.h"
+
+class Customer : public Human {
+public:
+    Customer(std::string name, int age);
+    void showInfo();
+};
+
+==========[ Staff.cpp ]==========
+
+#include "Staff.h"
+#include <iostream>
+
+Staff::Staff(std::string name, int age, std::string position) : Human(name, age), position(position) {}
+
+std::string Staff::getPosition() {
+    return position;
+}
+
+void Staff::showInfo() {
+    std::cout << "Персонал: " << name << ", Возраст: " << age << ", Должность: " << position << std::endl;
+}
+
+==========[ Staff.h ]==========
+
+#pragma once
+#include "Human.h"
+
+class Staff : public Human {
+private:
+    std::string position;
+
+public:
+    Staff(std::string name, int age, std::string position);
+    std::string getPosition();
+    void showInfo();
+};
+
+==========[ WorkingSchedule.cpp ]==========
+
+#include "WorkingSchedule.h"
+
+WorkingSchedule::WorkingSchedule(std::string schedule) : schedule(schedule) {}
+
+std::string WorkingSchedule::getSchedule() {
+    return schedule;
+}
+
+==========[ WorkingSchedule.h ]==========
+
+#pragma once
+#include <string>
+
+class WorkingSchedule {
+private:
+    std::string schedule;
+
+public:
+    WorkingSchedule(std::string schedule);
+    std::string getSchedule();
+};
+
+==========[ Human.cpp ]==========
+
+#include "Human.h"
+
+Human::Human(std::string name, int age) : name(name), age(age) {}
+
+std::string Human::getName() {
+    return name;
+}
+
+int Human::getAge() {
+    return age;
+}
+
+==========[ Human.h ]==========
+
+#pragma once
+#include <string>
+
+class Human {
+protected:
+    std::string name;
+    int age;
+
+public:
+    Human(std::string name, int age);
+    std::string getName();
+    int getAge();
+
+    virtual void showInfo() = 0;
+};
+
+==========[ Mall.cpp ]==========
+
+#include "Mall.h"
+#include <iostream>
+
+Mall::Mall(std::string name, std::string address, std::string schedule) : name(name), address(address), schedule(schedule) {}
+
+void Mall::addStore(Store store) {
+    stores.push_back(store);
+}
+
+void Mall::addStaff(Staff* staffMember) {
+    staff.push_back(staffMember);
+}
+
+void Mall::listStores() {
+    std::cout << "Магазины в " << name << " по адресу " << address << ":\n";
+    for (auto& store : stores) {
+        std::cout << "Магазин: " << store.getName() << std::endl;
+    }
+}
+
+void Mall::listStaff() {
+    std::cout << "Персонал торгового центра " << name << ":\n";
+    for (auto& staffMember : staff) {
+        staffMember->showInfo();
+    }
+}
+
+std::string Mall::getWorkingSchedule() {
+    return schedule.getSchedule();
+}
+
+==========[ Mall.h ]==========
+
+#pragma once
+#include <vector>
+#include <string>
+#include "Store.h"
+#include "WorkingSchedule.h"
+#include "Staff.h"
+
+class Mall {
+private:
+    std::string name;
+    std::string address;
+    WorkingSchedule schedule;
+    std::vector<Store> stores;
+    std::vector<Staff*> staff;
+
+public:
+    Mall(std::string name, std::string address, std::string schedule);
+    void addStore(Store store);
+    void addStaff(Staff* staffMember);
+    void listStores();
+    void listStaff();
+    std::string getWorkingSchedule();
+};
+
+==========[ Security.cpp ]==========
+
+#include "Security.h"
+#include <iostream>
+
+Security::Security(std::string name, int age) : Staff(name, age, "Охранник") {}
+
+void Security::showInfo() {
+    std::cout << "Охранник: " << getName() << ", Возраст: " << getAge() << std::endl;
+}
+
+==========[ Security.h ]==========
+
+#pragma once
+#include "Staff.h"
+
+class Security : public Staff {
+public:
+    Security(std::string name, int age);
+    void showInfo();
+};
+
+==========[ Store.cpp ]==========
+
+#include "Store.h"
+#include <iostream>
+
+Store::Store(std::string name) : name(name) {}
+
+void Store::addStaff(Staff* staffMember) {
+    staff.push_back(staffMember);
+}
+
+void Store::listStaff() {
+    std::cout << "Персонал магазина " << name << ":\n";
+    for (auto& staffMember : staff) {
+        staffMember->showInfo();
+    }
+}
+
+std::string Store::getName() {
+    return name;
+}
+
+==========[ Store.h ]==========
+
+#pragma once
+#include <vector>
+#include <string>
+#include "Staff.h"
+#include "Cleaner.h"
+#include "Security.h"
+
+class Store {
+private:
+    std::string name;
+    std::vector<Staff*> staff;
+
+public:
+    Store(std::string name);
+    void addStaff(Staff* staffMember);
+    void listStaff();
+    std::string getName();
+};
+
+==========[ Вывод ]==========
+
+Информация о торговом центре:
+Магазины в City Mall по адресу д. 43 ул. Пушкина:
+Магазин: Fashion Store
+Магазин: Electronics Hub
+График работы: 9:00 - 21:00
+
+Персонал магазина Fashion Store:
+Уборщик: Алина, Возраст: 30
+Охранник: Виктор, Возраст: 35
+
+Персонал магазина Electronics Hub:
+Уборщик: Анна, Возраст: 28
+Охранник: Дмитрий, Возраст: 40
+
+Персонал торгового центра City Mall:
+Уборщик: Алина, Возраст: 30
+Охранник: Виктор, Возраст: 35
+Уборщик: Анна, Возраст: 28
+Охранник: Дмитрий, Возраст: 40
