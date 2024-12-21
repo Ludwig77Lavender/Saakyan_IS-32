@@ -1,0 +1,230 @@
+==[ Snack.cpp ]==
+
+#include "Snack.h"
+
+Snack::Snack(std::string name, double price) : name(name), price(price) {}
+
+std::string Snack::getName() {
+    return name;
+}
+
+double Snack::getPrice() {
+    return price;
+}
+
+void Snack::setPrice(double price) {
+    this->price = price;
+}
+
+==[ Snack.h ]==
+
+#pragma once
+#include <string>
+
+class Snack {
+private:
+    std::string name;
+    double price; // Цена
+
+public:
+    Snack(std::string name, double price = 0.0); // Конструктор
+    std::string getName(); // Получить название
+    double getPrice(); // Получить цену
+    void setPrice(double price); // Установить цену
+};
+
+==[ SnackSlot.cpp ]==
+
+#include "SnackSlot.h"
+
+SnackSlot::SnackSlot(int capacity) : capacity(capacity) {}
+
+bool SnackSlot::addSnack(Snack* snack) {
+    if (snacks.size() < capacity) {
+        snacks.push_back(snack);
+        return true;
+    }
+    return false;
+}
+
+bool SnackSlot::isFull() {
+    return snacks.size() >= capacity;
+}
+
+int SnackSlot::getAvailableSlots() {
+    return capacity - snacks.size();
+}
+
+std::vector<Snack*> SnackSlot::getSnacks() {
+    return snacks;
+}
+
+void SnackSlot::removeSnack(Snack* snack) {
+    auto it = std::find(snacks.begin(), snacks.end(), snack);
+    if (it != snacks.end()) {
+        snacks.erase(it);
+    }
+}
+
+==[ SnackSlot.h ]==
+
+#pragma once
+#include <vector>
+#include "Snack.h"
+
+class SnackSlot {
+private:
+    int capacity;
+    std::vector<Snack*> snacks;
+
+public:
+    SnackSlot(int capacity); // Конструктор
+    bool addSnack(Snack* snack); // Добавить снек
+    bool isFull(); // Проверка на заполненность
+    int getAvailableSlots(); // Получить количество доступных слотов
+    std::vector<Snack*> getSnacks(); // Получить список снеки
+    void removeSnack(Snack* snack); // Удалить снек
+};
+
+==[ VendingApparat.cpp ]==
+
+#include "VendingMachine.h"
+#include <iostream>
+
+VendingMachine::VendingMachine(int slotCount) : slotCount(slotCount) {}
+
+VendingMachine::~VendingMachine() {
+    for (SnackSlot* slot : slots) {
+        delete slot;
+    }
+}
+
+bool VendingMachine::addSlot(SnackSlot* slot) {
+    if (slots.size() < slotCount) {
+        slots.push_back(slot);
+        return true;
+    }
+    return false;
+}
+
+int VendingMachine::getEmptySlotsCount() {
+    return slotCount - slots.size();
+}
+
+bool VendingMachine::dispenseSnack(std::string snackName, double& change, double moneyInserted) {
+    for (SnackSlot* slot : slots) {
+        for (Snack* snack : slot->getSnacks()) {
+            if (snack->getName() == snackName) {
+                if (moneyInserted >= snack->getPrice()) {
+                    change = moneyInserted - snack->getPrice();
+                    // Удалить снек из слота
+                    slot->removeSnack(snack);
+                    return true;
+                }
+            }
+        }
+    }
+    change = moneyInserted;
+    return false;
+}
+
+void VendingMachine::showSnacks() {
+    for (SnackSlot* slot : slots) {
+        for (Snack* snack : slot->getSnacks()) {
+            std::cout << snack->getName() << " - " << snack->getPrice() << " руб." << std::endl;
+        }
+    }
+}
+
+==[ VendingApparat.h ]==
+
+#pragma once
+#include <vector>
+#include "SnackSlot.h"
+
+class VendingMachine {
+private:
+    int slotCount;
+    std::vector<SnackSlot*> slots;
+
+public:
+    VendingMachine(int slotCount);
+    ~VendingMachine();
+    bool addSlot(SnackSlot* slot); // Добавить слот
+    int getEmptySlotsCount(); // Получить количество пустых слотов
+    bool dispenseSnack(std::string snackName, double& change, double moneyInserted); // Выдача снека
+    void showSnacks(); // Показать все доступные снеки
+};
+
+==[ main.cpp ]==
+
+#include <iostream>
+#include <string>
+#include "Snack.h"
+#include "SnackSlot.h"
+#include "VendingMachine.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    // Создание снека
+    Snack* bounty = new Snack("Bounty", 32.0);
+    Snack* snickers = new Snack("Snickers", 25.0);
+
+    // Изменение цены снека
+    snickers->setPrice(35.0);
+
+    // Создание слота для снека
+    SnackSlot* slot = new SnackSlot(10);
+
+    // Добавление снэков в слот
+    slot->addSnack(bounty);
+    slot->addSnack(snickers);
+
+    // Создание вендинговой машины с 5 слотами
+    VendingMachine* machine = new VendingMachine(5);
+
+    // Добавление слота в вендинговую машину
+    machine->addSlot(slot);
+
+    // Проверка количества пустых слотов
+    std::cout << "Количество пустых слотов: " << machine->getEmptySlotsCount() << std::endl;
+
+    // Показать все доступные снеки
+    std::cout << "Доступные снеки:" << std::endl;
+    machine->showSnacks();
+
+    // Попытка купить снэк
+    double change;
+    std::string selectedSnack;
+    double insertedMoney;
+
+    std::cout << "Введите сумму денег, которую хотите вставить: ";
+    std::cin >> insertedMoney;
+
+    std::cout << "Выберите снек: ";
+    std::cin >> selectedSnack;
+
+    if (machine->dispenseSnack(selectedSnack, change, insertedMoney)) {
+        std::cout << "Снек " << selectedSnack << " выдан. Сдача: " << change << std::endl;
+    }
+    else {
+        std::cout << "Недостаточно средств или снек отсутствует. Возврат средств: " << change << std::endl;
+    }
+
+    delete machine;
+    delete slot;
+    delete snickers;
+    delete bounty;
+
+    return 0;
+}
+
+==[ Вывод ]==
+
+Количество пустых слотов: 4
+Доступные снеки:
+Bounty - 32 руб.
+Snickers - 35 руб.
+Введите сумму денег, которую хотите вставить: 50
+Выберите снек: Snickers
+Снек Snickers выдан. Сдача: 15

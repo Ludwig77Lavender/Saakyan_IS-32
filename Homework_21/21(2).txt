@@ -1,0 +1,222 @@
+==[ Car.cpp ]==
+
+#include "Car.h"
+#include <iostream>
+
+Car::Car(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage)
+    : brand(brand), color(color), bodyType(bodyType), engineVolume(engineVolume), mileage(mileage) {}
+
+double Car::calculateFuelConsumption() {
+    return (engineVolume / mileage) * 100;
+}
+
+void Car::reduceMileage(double reduction) {  // Реализация функции reduceMileage
+    mileage -= reduction;
+}
+
+void Car::display() {
+    std::cout << "\tМарка: " << brand
+        << "\n\tЦвет: " << color
+        << "\n\tТип кузова: " << bodyType
+        << "\n\tОбъем двигателя: " << engineVolume << " л."
+        << "\n\tПробег: " << mileage << " км."
+        << "\n\t\t[ Уменьшение Пробега: " << mileage - 10 << " нов. км. ]"
+        << "\n\tРасход топлива: " << calculateFuelConsumption() << " л/км." << std::endl;
+}
+
+==[ Car.h ]==
+
+#pragma once
+#include <string>
+
+class Car {
+public:
+    Car(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage);
+
+    double calculateFuelConsumption();
+    void reduceMileage(double reduction);
+    virtual void display();
+
+private:
+    std::string brand;
+    std::string color;
+    std::string bodyType;
+    double engineVolume;
+    double mileage;
+};
+
+==[ Features.cpp ]==
+
+#include <iostream>
+#include "Features.h"
+
+Features::Features(std::string specialFeature) : specialFeature(specialFeature) {}
+
+void Features::displayFeatures() {
+    std::cout << "\tОсобенность: " << specialFeature << std::endl;
+}
+
+==[ Features.h ]==
+
+#pragma once
+#include <string>
+
+class Features {
+public:
+    Features(std::string specialFeature);
+
+    virtual void displayFeatures();
+
+private:
+    std::string specialFeature;
+};
+
+==[ PassengerCar.cpp ]==
+
+#include <iostream>
+#include "PassengerCar.h"
+
+PassengerCar::PassengerCar(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage, int seats, std::string specialFeature)
+    : Car(brand, color, bodyType, engineVolume, mileage), Features(specialFeature), seats(seats) {}
+
+void PassengerCar::display() {
+    Car::display();
+    std::cout << "\tКоличество мест: " << seats << std::endl;
+    displayFeatures();
+}
+
+==[ PassengerCar.h ]==
+
+#pragma once
+#include "Car.h"
+#include "Features.h"
+
+class PassengerCar : public Car, public Features {
+public:
+    PassengerCar(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage, int seats, std::string specialFeature);
+
+    void display() override;
+
+private:
+    int seats;
+};
+
+==[ Truck.cpp ]==
+
+#include "Truck.h"
+#include <iostream>
+
+Truck::Truck(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage, double loadCapacity, std::string specialFeature)
+    : Car(brand, color, bodyType, engineVolume, mileage), Features(specialFeature), loadCapacity(loadCapacity) {}
+
+void Truck::display() {
+    Car::display();
+    std::cout << "\tГрузоподъемность: " << loadCapacity << " тонн." << std::endl;
+    displayFeatures();
+}
+
+==[ Truck.h ]==
+
+#pragma once
+#include "Car.h"
+#include "Features.h"
+
+class Truck : public Car, public Features {
+public:
+    Truck(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage, double loadCapacity, std::string specialFeature);
+
+    void display() override;
+
+private:
+    double loadCapacity;
+};
+
+==[ SportCar.cpp ]==
+
+#include "SportCar.h"
+#include <iostream>
+
+SportsCar::SportsCar(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage, double maxSpeed, std::string specialFeature)
+    : Car(brand, color, bodyType, engineVolume, mileage), Features(specialFeature), maxSpeed(maxSpeed) {}
+
+void SportsCar::display() {
+    Car::display();
+    std::cout << "\tМаксимальная скорость: " << maxSpeed << " км/ч." << std::endl;
+    displayFeatures();
+}
+
+==[ SportCar.h ]==
+
+#pragma once
+#include "Car.h"
+#include "Features.h"
+
+class SportsCar : public Car, public Features {
+public:
+    SportsCar(std::string brand, std::string color, std::string bodyType, double engineVolume, double mileage, double maxSpeed, std::string specialFeature);
+
+    void display() override;
+
+private:
+    double maxSpeed;
+};
+
+==[ main.cpp ]==
+
+#include <iostream>
+#include "PassengerCar.h"
+#include "Truck.h"
+#include "SportCar.h"
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    PassengerCar passengerCar("Kia K5", "Белый", "Седан", 2.0, 100000, 240, "Полу люкс");
+    Truck truck("ГАЗ 33021", "Белый", "Грузовик", 2.4, 300000, 200, "Большое багажное отделение");
+    SportsCar sportsCar("Ferrari La Ferrari", "Красный", "Купе", 7.6, 400, 380, "Люкс Спорт");
+
+    std::cout << "Легковой автомобиль:" << std::endl;
+    passengerCar.display();
+
+    std::cout << "\nГрузовик:" << std::endl;
+    truck.display();
+
+    std::cout << "\nСпортивный автомобиль:" << std::endl;
+    sportsCar.display();
+
+    return 0;
+}
+
+==[ Вывод ]==
+
+Легковой автомобиль:
+        Марка: Kia K5
+        Цвет: Белый
+        Тип кузова: Седан
+        Объем двигателя: 2 л.
+        Пробег: 100000 км.
+                [ Уменьшение Пробега: 99990 нов. км. ]
+        Расход топлива: 0.002 л/км.
+        Количество мест: 240
+        Особенность: Полу люкс
+
+Грузовик:
+        Марка: ГАЗ 33021
+        Цвет: Белый
+        Тип кузова: Грузовик
+        Объем двигателя: 2.4 л.
+        Пробег: 300000 км.
+                [ Уменьшение Пробега: 299990 нов. км. ]
+        Расход топлива: 0.0008 л/км.
+        Грузоподъемность: 200 тонн.
+        Особенность: Большое багажное отделение
+
+Спортивный автомобиль:
+        Марка: Ferrari La Ferrari
+        Цвет: Красный
+        Тип кузова: Купе
+        Объем двигателя: 7.6 л.
+        Пробег: 400 км.
+                [ Уменьшение Пробега: 390 нов. км. ]
+        Расход топлива: 1.9 л/км.
+        Максимальная скорость: 380 км/ч.
+        Особенность: Люкс Спорт
